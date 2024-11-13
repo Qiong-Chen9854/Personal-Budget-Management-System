@@ -88,4 +88,8 @@ public class ConsoleService {
         System.out.println("An error occurred. Check the log for details.");
     }
 
+    public void printUserCurrentBalance(double balance){
+        System.out.println("Your current account balance is : $" + String.valueOf(balance));
+    }
+
 }
