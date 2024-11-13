@@ -4,7 +4,7 @@ import java.time.LocalDate;
 import java.util.Objects;
 
 public class Income {
-    private int incomeId:
+    private int incomeId;
     private int userId;
     private double amount;
     private String source;
