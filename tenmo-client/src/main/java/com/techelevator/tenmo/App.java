@@ -1,10 +1,13 @@
 package com.techelevator.tenmo;
 
 import com.techelevator.tenmo.model.AuthenticatedUser;
+import com.techelevator.tenmo.model.Income;
 import com.techelevator.tenmo.model.UserCredentials;
 import com.techelevator.tenmo.services.AccountService;
 import com.techelevator.tenmo.services.AuthenticationService;
 import com.techelevator.tenmo.services.ConsoleService;
+
+import java.util.Date;
 
 public class App {
 
@@ -71,13 +74,13 @@ public class App {
             if (menuSelection == 1) {
                 viewCurrentBalance();
             } else if (menuSelection == 2) {
-                viewTransferHistory();
+                addNewIncome();
             } else if (menuSelection == 3) {
-                viewPendingRequests();
+                addNewExpense();
             } else if (menuSelection == 4) {
-                sendBucks();
+                setBudget();
             } else if (menuSelection == 5) {
-                requestBucks();
+                summaryReport();
             } else if (menuSelection == 0) {
                 continue;
             } else {
@@ -94,22 +97,30 @@ public class App {
 		
 	}
 
-	private void viewTransferHistory() {
+	private void addNewIncome() {
+		// TODO Auto-generated method stub
+        double getAmount = consoleService.askUserAmount();
+        String incomeSource = consoleService.promptForString("The Source of Income: ");
+        Date date = consoleService.askDate();
+        Income income = new Income();
+        income.setAmount(getAmount);
+        income.setSource(incomeSource);
+        income.setDate(date);
+        income = accountService.addIncome(income);
+        consoleService.printNewIncomeInfo(income);
+	}
+
+	private void addNewExpense() {
 		// TODO Auto-generated method stub
 		
 	}
 
-	private void viewPendingRequests() {
+	private void setBudget() {
 		// TODO Auto-generated method stub
 		
 	}
 
-	private void sendBucks() {
-		// TODO Auto-generated method stub
-		
-	}
-
-	private void requestBucks() {
+	private void summaryReport() {
 		// TODO Auto-generated method stub
 		
 	}

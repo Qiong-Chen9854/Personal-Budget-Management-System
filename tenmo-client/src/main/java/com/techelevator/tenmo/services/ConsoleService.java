@@ -1,9 +1,12 @@
 package com.techelevator.tenmo.services;
 
 
+import com.techelevator.tenmo.model.Income;
 import com.techelevator.tenmo.model.UserCredentials;
 
 import java.math.BigDecimal;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Scanner;
 
 public class ConsoleService {
@@ -90,6 +93,31 @@ public class ConsoleService {
 
     public void printUserCurrentBalance(double balance){
         System.out.println("Your current account balance is : $" + String.valueOf(balance));
+    }
+
+    public double askUserAmount(){
+        System.out.print("The Income Amount: ");
+        double amount = Double.parseDouble(scanner.nextLine());
+        return amount;
+    }
+
+    public Date askDate(){
+        System.out.print("What Data for this Transaction(format as 'yyyy-MM-dd'): ");
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+        try {
+            Date date = formatter.parse(scanner.nextLine());
+            return date;
+        } catch (Exception e) {
+            System.out.println("Invalid date format. Please use 'yyyy-MM-dd'.");
+            return null;  // Or you can prompt the user again for a valid date
+        }
+    }
+
+    public void printNewIncomeInfo(Income income){
+        System.out.print("This new income added into your account --> ");
+        System.out.print("Amount: $" + String.valueOf(income.getAmount()));
+        System.out.println("Source: " + income.getSource());
+
     }
 
 }

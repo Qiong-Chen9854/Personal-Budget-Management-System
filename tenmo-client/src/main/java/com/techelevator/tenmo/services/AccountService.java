@@ -1,6 +1,7 @@
 package com.techelevator.tenmo.services;
 
 import com.techelevator.tenmo.model.AuthenticatedUser;
+import com.techelevator.tenmo.model.Income;
 import com.techelevator.tenmo.model.User;
 import com.techelevator.util.BasicLogger;
 import org.springframework.http.*;
@@ -42,6 +43,21 @@ public class AccountService {
         }
 
         return balance;
+    }
+
+    public Income addIncome(Income income){
+        String url = baseApiUrl + "/account/income";
+        HttpEntity<Income> entity = new HttpEntity<>(income,headers());
+
+        try{
+            ResponseEntity<Income> response = restTemplate.exchange(url,HttpMethod.POST,entity,Income.class);
+            income = response.getBody();
+        } catch(RestClientResponseException e){
+            BasicLogger.log(e.getRawStatusCode() + ": " + e.getStatusText());
+        } catch(ResourceAccessException e){
+            BasicLogger.log(e.getMessage());
+        }
+        return income;
     }
 
 
