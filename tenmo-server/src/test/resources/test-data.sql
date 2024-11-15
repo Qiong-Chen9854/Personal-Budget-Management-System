@@ -75,4 +75,41 @@ CREATE TABLE budgets(
 	CONSTRAINT fk_budgets FOREIGN KEY (user_id) REFERENCES tenmo_user(user_id)
 );
 
+-- Insert sample users
+INSERT INTO tenmo_user (username, password_hash, role)
+VALUES
+    ('user1', 'user1', 'user'),
+    ('user2', 'user2', 'user'),
+    ('admin', 'admin', 'admin');
+
+-- Insert sample accounts
+INSERT INTO account (user_id, balance)
+VALUES
+    (1001, 1000.00),
+    (1002, 2500.00),
+    (1003, 5000.00);
+
+-- Insert sample incomes
+INSERT INTO incomes (user_id, amount, source, date)
+VALUES
+    (1001, 3000.00, 'Salary', '2024-01-15'),
+    (1002, 1500.00, 'Freelance', '2024-02-01'),
+    (1001, 200.00, 'Gift', '2024-02-05'),
+    (1003, 2500.00, 'Investment', '2024-03-10');
+
+-- Insert sample expenses with restricted categories
+INSERT INTO expenses (user_id, amount, category, date)
+VALUES
+    (1001, 150.00, 'Food', '2024-01-16'),
+    (1002, 75.00, 'Entertainment', '2024-02-05'),
+    (1003, 1200.00, 'Housing', '2024-03-01'),
+    (1001, 45.00, 'Transportation', '2024-01-20');
+
+-- Insert sample budgets with restricted categories
+INSERT INTO budgets (user_id, amount, category, month_year)
+VALUES
+    (1001, 1000.00, 'Monthly Budget', '2024-01-01'),
+    (1002, 1500.00, 'Monthly Budget', '2024-02-01'),
+    (1003, 2000.00, 'Monthly Budget', '2024-03-01');
+
 COMMIT;
