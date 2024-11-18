@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.security.Principal;
+import java.util.List;
 
 @RestController
 public class AccountController {
@@ -34,6 +35,11 @@ public class AccountController {
     public Income createIncome(@RequestBody Income income, Principal principal){
         income.setUserId(getUserId(principal));
         return incomeDao.createNewIncome(income);
+    }
+
+    @RequestMapping(path="/account/income", method = RequestMethod.GET)
+    public List<Income> getIncomeList(Principal principal){
+        return incomeDao.getIncomeList(getUserId(principal));
     }
 
     private int getUserId(Principal principal){

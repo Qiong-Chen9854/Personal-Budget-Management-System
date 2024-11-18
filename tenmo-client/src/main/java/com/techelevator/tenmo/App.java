@@ -7,7 +7,9 @@ import com.techelevator.tenmo.services.AccountService;
 import com.techelevator.tenmo.services.AuthenticationService;
 import com.techelevator.tenmo.services.ConsoleService;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 public class App {
 
@@ -121,8 +123,21 @@ public class App {
 	}
 
 	private void summaryReport() {
+        int summaryMenu = -1;
 		// TODO Auto-generated method stub
-		
+        while(summaryMenu != 0){
+            consoleService.pintSummaryMenu();
+            summaryMenu = consoleService.promptForMenuSelection("Please choose an option: ");
+            if(summaryMenu == 1){
+                getIncomeList();
+            }
+        }
 	}
+
+    private void getIncomeList(){
+        List<Income> incomes = new ArrayList<>();
+        incomes = accountService.getIncomeList();
+        consoleService.printIncomeList(incomes);
+    }
 
 }

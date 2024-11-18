@@ -7,6 +7,7 @@ import com.techelevator.tenmo.model.UserCredentials;
 import java.math.BigDecimal;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 import java.util.Scanner;
 
 public class ConsoleService {
@@ -47,6 +48,13 @@ public class ConsoleService {
         System.out.println("5: Summary Report");
         System.out.println("0: Exit");
         System.out.println();
+    }
+
+    public void pintSummaryMenu(){
+        System.out.println();
+        System.out.println("1: View All Your Incomes");
+        System.out.println("2: View All Your Expenses");
+        System.out.println("0: Exit");
     }
 
     public UserCredentials promptForCredentials() {
@@ -117,6 +125,24 @@ public class ConsoleService {
         System.out.print("This new income added into your account --> ");
         System.out.print("Amount: $" + String.valueOf(income.getAmount()));
         System.out.println("Source: " + income.getSource());
+    }
+
+    public void printIncomeList(List<Income> incomes){
+        // Define the date format
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        System.out.println("IncomeID   Amount    Source  Date");
+        for(Income income:incomes){
+            System.out.print(income.getIncomeId() + "     ");
+            System.out.print(income.getAmount()+ "     ");
+            System.out.print(income.getSource() + "     ");
+            // Format the date
+            if (income.getDate() != null) {
+                System.out.print(dateFormat.format(income.getDate()));
+            } else {
+                System.out.print("N/A"); // Handle null dates
+            }
+            System.out.println();
+        }
 
     }
 

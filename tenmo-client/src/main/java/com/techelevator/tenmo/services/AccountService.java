@@ -9,6 +9,9 @@ import org.springframework.web.client.ResourceAccessException;
 import org.springframework.web.client.RestClientResponseException;
 import org.springframework.web.client.RestTemplate;
 
+import java.util.Arrays;
+import java.util.List;
+
 public class AccountService {
     private String baseApiUrl;
     private AuthenticatedUser currentUser;
@@ -58,6 +61,22 @@ public class AccountService {
             BasicLogger.log(e.getMessage());
         }
         return income;
+    }
+
+    public List<Income> getIncomeList(){
+        Income[] incomes = null;
+        String url = baseApiUrl + "/account/income";
+
+        HttpEntity<Income> entity = new HttpEntity<>(headers());
+        try{
+            ResponseEntity<Income[]> response = restTemplate.exchange(url,HttpMethod.GET,entity,Income[].class);
+            incomes = response.getBody();
+        } catch(RestClientResponseException e){
+            BasicLogger.log(e.getRawStatusCode() + ": " + e.getMessage());
+        } catch(ResourceAccessException e){
+            BasicLogger.log(e.getMessage());
+        }
+        return Arrays.asList(incomes);
     }
 
 
