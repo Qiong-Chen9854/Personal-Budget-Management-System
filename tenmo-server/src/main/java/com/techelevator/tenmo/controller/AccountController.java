@@ -1,8 +1,10 @@
 package com.techelevator.tenmo.controller;
 
 import com.techelevator.tenmo.dao.AccountDao;
+import com.techelevator.tenmo.dao.ExpenseDao;
 import com.techelevator.tenmo.dao.IncomeDao;
 import com.techelevator.tenmo.dao.UserDao;
+import com.techelevator.tenmo.model.Expense;
 import com.techelevator.tenmo.model.Income;
 import com.techelevator.tenmo.model.User;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -17,14 +19,16 @@ import java.util.List;
 public class AccountController {
     private AccountDao accountDao;
     private IncomeDao incomeDao;
+    private ExpenseDao expenseDao;
     private UserDao userDao;
-    public AccountController(AccountDao accountDao, UserDao userDao,IncomeDao incomeDao){
+    public AccountController(AccountDao accountDao, UserDao userDao,IncomeDao incomeDao,ExpenseDao expenseDao){
         this.accountDao = accountDao;
         this.userDao = userDao;
         this.incomeDao = incomeDao;
+        this.expenseDao = expenseDao;
     }
 
-    @RequestMapping(path="/account", method = RequestMethod.GET)
+    @RequestMapping(path="/account", method=RequestMethod.GET)
     public double balance(Principal principal){
         String userName = principal.getName();
         User user = userDao.getUserByUsername(userName);
@@ -37,9 +41,14 @@ public class AccountController {
         return incomeDao.createNewIncome(income);
     }
 
-    @RequestMapping(path="/account/income", method = RequestMethod.GET)
+    @RequestMapping(path="/account/income", method=RequestMethod.GET)
     public List<Income> getIncomeList(Principal principal){
         return incomeDao.getIncomeList(getUserId(principal));
+    }
+    @RequestMapping(path="/account/expense", method=RequestMethod.GET)
+    public Expense createExpense(@RequestBody Expense expense, Principal principal){
+        expense.setUserId(getUserId(principal));
+        return expenseDao.createNewExpense(expense);
     }
 
     private int getUserId(Principal principal){
