@@ -1,6 +1,7 @@
 package com.techelevator.tenmo.services;
 
 
+import com.techelevator.tenmo.model.Expense;
 import com.techelevator.tenmo.model.Income;
 import com.techelevator.tenmo.model.UserCredentials;
 
@@ -125,6 +126,15 @@ public class ConsoleService {
         System.out.print("This new income added into your account --> ");
         System.out.print("Amount: $" + String.valueOf(income.getAmount()));
         System.out.println("Source: " + income.getSource());
+    }
+
+    public void printNewExpenseInfo(Expense expense){
+        System.out.println("------------------------------------------------------");
+        System.out.println("This new expense occurred into your account --> ");
+        System.out.println("Amount: $" + String.valueOf(expense.getAmount()));
+        System.out.println("The Expense spend on: " + expense.getCategory());
+        System.out.println("------------------------------------------------------");
+
     }
 
     public void printIncomeList(List<Income> incomes){

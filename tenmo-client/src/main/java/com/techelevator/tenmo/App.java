@@ -1,6 +1,7 @@
 package com.techelevator.tenmo;
 
 import com.techelevator.tenmo.model.AuthenticatedUser;
+import com.techelevator.tenmo.model.Expense;
 import com.techelevator.tenmo.model.Income;
 import com.techelevator.tenmo.model.UserCredentials;
 import com.techelevator.tenmo.services.AccountService;
@@ -114,6 +115,15 @@ public class App {
 
 	private void addNewExpense() {
 		// TODO Auto-generated method stub
+        double getAmount = consoleService.askUserAmount();
+        String expenseCategory = consoleService.promptForString("The Category of Expense: ");
+        Date date = consoleService.askDate();
+        Expense expense = new Expense();
+        expense.setAmount(getAmount);
+        expense.setCategory(expenseCategory);
+        expense.setDate(date);
+        expense = accountService.createNewExpense(expense);
+        consoleService.printNewExpenseInfo(expense);
 		
 	}
 

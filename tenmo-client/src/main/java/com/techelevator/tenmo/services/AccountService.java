@@ -1,6 +1,7 @@
 package com.techelevator.tenmo.services;
 
 import com.techelevator.tenmo.model.AuthenticatedUser;
+import com.techelevator.tenmo.model.Expense;
 import com.techelevator.tenmo.model.Income;
 import com.techelevator.tenmo.model.User;
 import com.techelevator.util.BasicLogger;
@@ -77,6 +78,21 @@ public class AccountService {
             BasicLogger.log(e.getMessage());
         }
         return Arrays.asList(incomes);
+    }
+
+    public Expense createNewExpense(Expense expense){
+        String url = baseApiUrl + "/account/expense";
+        HttpEntity<Expense> entity = new HttpEntity<>(expense,headers());
+        try{
+            ResponseEntity<Expense> response = restTemplate.exchange(url,HttpMethod.POST,entity,Expense.class);
+            expense = response.getBody();
+        } catch (RestClientResponseException e){
+            BasicLogger.log(e.getRawStatusCode() + ": " + e.getMessage());
+        } catch(ResourceAccessException e){
+            BasicLogger.log(e.getMessage());
+        }
+
+        return expense;
     }
 
 
