@@ -1,6 +1,8 @@
 package com.techelevator.tenmo.model;
 
-import java.time.LocalDate;
+import com.fasterxml.jackson.annotation.JsonFormat;
+
+import java.util.Date;
 import java.util.Objects;
 
 public class Expense {
@@ -8,12 +10,13 @@ public class Expense {
     private int userId;
     private double amount;
     private String category;
-    private LocalDate date;
+    @JsonFormat(pattern = "yyyy-MM-dd")
+    private Date date;
 
     public Expense() {
     }
 
-    public Expense(int expenseId, int userId, double amount, String category, LocalDate date) {
+    public Expense(int expenseId, int userId, double amount, String category, Date date) {
         this.expenseId = expenseId;
         this.userId = userId;
         this.amount = amount;
@@ -53,13 +56,14 @@ public class Expense {
         this.category = category;
     }
 
-    public LocalDate getDate() {
+    public Date getDate() {
         return date;
     }
 
-    public void setDate(LocalDate date) {
+    public void setDate(Date date) {
         this.date = date;
     }
+
 
     @Override
     public boolean equals(Object o) {

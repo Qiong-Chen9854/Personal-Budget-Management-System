@@ -130,11 +130,13 @@ public class ConsoleService {
     public void printIncomeList(List<Income> incomes){
         // Define the date format
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-        System.out.println("IncomeID   Amount    Source  Date");
+        System.out.println("------------------------------------------------------");
+        System.out.println("IncomeID        Amount        Source        Date");
+        System.out.println("------------------------------------------------------");
         for(Income income:incomes){
-            System.out.print(income.getIncomeId() + "     ");
-            System.out.print(income.getAmount()+ "     ");
-            System.out.print(income.getSource() + "     ");
+            System.out.printf("%-16s",income.getIncomeId());
+            System.out.printf("%-14s",income.getAmount());
+            System.out.printf("%-14s",income.getSource());
             // Format the date
             if (income.getDate() != null) {
                 System.out.print(dateFormat.format(income.getDate()));
