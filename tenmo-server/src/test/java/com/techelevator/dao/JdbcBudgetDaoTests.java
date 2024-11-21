@@ -30,4 +30,5 @@ public class JdbcBudgetDaoTests extends BaseDaoTests{
         testBudget.setBudgetId(createBudget.getBudgetId());
         Assert.assertEquals(testBudget,selectBudget);
     }
+
 }
