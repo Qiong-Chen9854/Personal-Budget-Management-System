@@ -1,22 +1,23 @@
 package com.techelevator.tenmo.model;
 
-import java.time.YearMonth;
+import com.fasterxml.jackson.annotation.JsonFormat;
+
+import java.util.Date;
 import java.util.Objects;
 
 public class Budget {
     private int budgetId;
     private int userId;
-    private String category;
     private double amount;
-    private YearMonth monthYear;
+    @JsonFormat(pattern = "yyyy-MM-dd")
+    private Date monthYear;
 
     public Budget() {
     }
 
-    public Budget(int budgetId, int userId, String category, double amount, YearMonth monthYear) {
+    public Budget(int budgetId, int userId, double amount, Date monthYear) {
         this.budgetId = budgetId;
         this.userId = userId;
-        this.category = category;
         this.amount = amount;
         this.monthYear = monthYear;
     }
@@ -37,14 +38,6 @@ public class Budget {
         this.userId = userId;
     }
 
-    public String getCategory() {
-        return category;
-    }
-
-    public void setCategory(String category) {
-        this.category = category;
-    }
-
     public double getAmount() {
         return amount;
     }
@@ -53,11 +46,11 @@ public class Budget {
         this.amount = amount;
     }
 
-    public YearMonth getMonthYear() {
+    public Date getMonthYear() {
         return monthYear;
     }
 
-    public void setMonthYear(YearMonth monthYear) {
+    public void setMonthYear(Date monthYear) {
         this.monthYear = monthYear;
     }
 
@@ -66,12 +59,12 @@ public class Budget {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Budget budget = (Budget) o;
-        return budgetId == budget.budgetId && userId == budget.userId && Double.compare(budget.amount, amount) == 0 && Objects.equals(category, budget.category) && Objects.equals(monthYear, budget.monthYear);
+        return budgetId == budget.budgetId && userId == budget.userId && Double.compare(budget.amount, amount) == 0 && Objects.equals(monthYear, budget.monthYear);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(budgetId, userId, category, amount, monthYear);
+        return Objects.hash(budgetId, userId, amount, monthYear);
     }
 
     @Override
@@ -79,7 +72,6 @@ public class Budget {
         return "Budget{" +
                 "budgetId=" + budgetId +
                 ", userId=" + userId +
-                ", category='" + category + '\'' +
                 ", amount=" + amount +
                 ", monthYear=" + monthYear +
                 '}';

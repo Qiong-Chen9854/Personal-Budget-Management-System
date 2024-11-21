@@ -1,9 +1,7 @@
 package com.techelevator.tenmo.controller;
 
-import com.techelevator.tenmo.dao.AccountDao;
-import com.techelevator.tenmo.dao.ExpenseDao;
-import com.techelevator.tenmo.dao.IncomeDao;
-import com.techelevator.tenmo.dao.UserDao;
+import com.techelevator.tenmo.dao.*;
+import com.techelevator.tenmo.model.Budget;
 import com.techelevator.tenmo.model.Expense;
 import com.techelevator.tenmo.model.Income;
 import com.techelevator.tenmo.model.User;
@@ -20,12 +18,15 @@ public class AccountController {
     private AccountDao accountDao;
     private IncomeDao incomeDao;
     private ExpenseDao expenseDao;
+    private BudgetDao budgetDao;
     private UserDao userDao;
-    public AccountController(AccountDao accountDao, UserDao userDao,IncomeDao incomeDao,ExpenseDao expenseDao){
+    public AccountController(AccountDao accountDao, UserDao userDao,IncomeDao incomeDao,ExpenseDao expenseDao,
+                             BudgetDao budgetDao){
         this.accountDao = accountDao;
         this.userDao = userDao;
         this.incomeDao = incomeDao;
         this.expenseDao = expenseDao;
+        this.budgetDao = budgetDao;
     }
 
     @RequestMapping(path="/account", method=RequestMethod.GET)
@@ -54,6 +55,12 @@ public class AccountController {
     public List<Expense> getExpenseList(Principal principal){
         return  expenseDao.getExpenseList(getUserId(principal));
     }
+    @RequestMapping(path="/account/budget",method = RequestMethod.POST)
+    public Budget createBudget(@RequestBody Budget budget, Principal principal){
+        budget.setUserId(getUserId(principal));
+        return budgetDao.createBudget(budget);
+    }
+
 
     private int getUserId(Principal principal){
         String userName = principal.getName();

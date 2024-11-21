@@ -69,7 +69,6 @@ CREATE TABLE budgets(
 	budget_id int not null default nextval('seq_budget_id'),
 	user_id int,
 	amount numeric(12,2) default 0.00,
-	category varchar(225),
 	month_year date default null,
 	CONSTRAINT pk_budgets PRIMARY KEY (budget_id),
 	CONSTRAINT fk_budgets FOREIGN KEY (user_id) REFERENCES tenmo_user(user_id)
@@ -106,10 +105,10 @@ VALUES
     (1001, 45.00, 'Transportation', '2024-01-20');
 
 -- Insert sample budgets with restricted categories
-INSERT INTO budgets (user_id, amount, category, month_year)
+INSERT INTO budgets (user_id, amount, month_year)
 VALUES
-    (1001, 1000.00, 'Monthly Budget', '2024-01-01'),
-    (1002, 1500.00, 'Monthly Budget', '2024-02-01'),
-    (1003, 2000.00, 'Monthly Budget', '2024-03-01');
+    (1001, 1000.00, '2024-01-01'),
+    (1002, 1500.00, '2024-02-01'),
+    (1003, 2000.00, '2024-03-01');
 
 COMMIT;

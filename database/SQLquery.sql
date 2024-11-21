@@ -9,7 +9,11 @@ SELECT *
 FROM account
 
 SELECT *
+FROM budgets
+
+SELECT expense_id, user_id, amount, category, date
 FROM expenses
+WHERE user_id = 1001
 
 Delete from incomes
 where user_id = 1001
@@ -26,6 +30,9 @@ WHERE user_id = 1001;
 -- create a new expense
 INSERT INTO expenses(user_id,amount,category,date)
 VALUES(1001,100,'Food','2024-11-18') RETURNING expense_id
+
+INSERT INTO budgets(user_id, amount, month_year)
+
 
 UPDATE account
 SET balance = balance - 100

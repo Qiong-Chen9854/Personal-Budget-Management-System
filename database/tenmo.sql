@@ -69,7 +69,6 @@ CREATE TABLE budgets(
 	budget_id int not null default nextval('seq_budget_id'),
 	user_id int,
 	amount numeric(12,2) default 0.00,
-	category varchar(225),
 	month_year date default null,
 	CONSTRAINT pk_budgets PRIMARY KEY (budget_id),
 	CONSTRAINT fk_budgets FOREIGN KEY (user_id) REFERENCES tenmo_user(user_id)
