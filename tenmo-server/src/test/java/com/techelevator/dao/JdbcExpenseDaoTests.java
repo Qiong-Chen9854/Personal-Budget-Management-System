@@ -9,6 +9,7 @@ import org.junit.Test;
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.Date;
+import java.util.List;
 
 public class JdbcExpenseDaoTests extends BaseDaoTests{
     private Expense testExpense;
@@ -28,6 +29,13 @@ public class JdbcExpenseDaoTests extends BaseDaoTests{
         Expense selectedExpense = jdbcExpenseDao.getExpenseByExpenseId(createExpense.getExpenseId());
         testExpense.setExpenseId(createExpense.getExpenseId());
         Assert.assertEquals(testExpense,selectedExpense);
+    }
+
+    @Test
+    public void get_all_expense(){
+        List<Expense> expenseList = jdbcExpenseDao.getExpenseList(1001);
+        int numOfExpense = expenseList.size();
+        Assert.assertEquals(2,numOfExpense);
     }
 
 }

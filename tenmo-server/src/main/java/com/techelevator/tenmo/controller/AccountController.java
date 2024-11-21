@@ -50,6 +50,10 @@ public class AccountController {
         expense.setUserId(getUserId(principal));
         return expenseDao.createNewExpense(expense);
     }
+    @RequestMapping(path="/account/expense", method=RequestMethod.GET)
+    public List<Expense> getExpenseList(Principal principal){
+        return  expenseDao.getExpenseList(getUserId(principal));
+    }
 
     private int getUserId(Principal principal){
         String userName = principal.getName();

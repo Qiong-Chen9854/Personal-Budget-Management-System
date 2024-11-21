@@ -7,6 +7,8 @@ import org.springframework.jdbc.support.rowset.SqlRowSet;
 import org.springframework.stereotype.Component;
 
 import javax.sql.DataSource;
+import java.util.ArrayList;
+import java.util.List;
 
 @Component
 public class JdbcExpenseDao implements ExpenseDao{
@@ -47,6 +49,19 @@ public class JdbcExpenseDao implements ExpenseDao{
             return mapRowToExpense(result);
         }
         throw new DaoException("Expense with ID" + id + " not found");
+    }
+
+    @Override
+    public List<Expense> getExpenseList(int userId) {
+        List<Expense> expenseList = new ArrayList<>();
+        String sql = "SELECT expense_id, user_id, amount, category, date\n" +
+                "FROM expenses\n" +
+                "WHERE user_id = ? ";
+        SqlRowSet results = jdbcTemplate.queryForRowSet(sql, userId);
+        while(results.next()){
+            expenseList.add(mapRowToExpense(results));
+        }
+        return expenseList;
     }
 
     private Expense mapRowToExpense(SqlRowSet row){
