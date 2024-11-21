@@ -140,6 +140,8 @@ public class App {
             summaryMenu = consoleService.promptForMenuSelection("Please choose an option: ");
             if(summaryMenu == 1){
                 getIncomeList();
+            }else if(summaryMenu == 2){
+                getExpenseList();
             }
         }
 	}
@@ -148,6 +150,12 @@ public class App {
         List<Income> incomes = new ArrayList<>();
         incomes = accountService.getIncomeList();
         consoleService.printIncomeList(incomes);
+    }
+
+    private void getExpenseList(){
+        List<Expense> expenses = new ArrayList<>();
+        expenses = accountService.getAllExpense();
+        consoleService.printExpenseList(expenses);
     }
 
 }

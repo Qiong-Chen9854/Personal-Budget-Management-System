@@ -95,6 +95,22 @@ public class AccountService {
         return expense;
     }
 
+    public List<Expense> getAllExpense(){
+        Expense[] expenses = null;
+        String url = baseApiUrl + "/account/expense";
+        HttpEntity<Expense> entity = new HttpEntity<>(headers());
+
+        try{
+            ResponseEntity<Expense[]> response = restTemplate.exchange(url,HttpMethod.GET,entity,Expense[].class);
+            expenses = response.getBody();
+        } catch(RestClientResponseException e){
+            BasicLogger.log(e.getRawStatusCode() + ": " + e.getMessage());
+        } catch(ResourceAccessException e){
+            BasicLogger.log(e.getMessage());
+        }
+        return Arrays.asList(expenses);
+    }
+
 
     private HttpHeaders headers(){
         HttpHeaders headers = new HttpHeaders();

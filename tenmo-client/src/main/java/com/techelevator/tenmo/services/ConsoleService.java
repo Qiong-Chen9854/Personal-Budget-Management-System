@@ -155,7 +155,27 @@ public class ConsoleService {
             }
             System.out.println();
         }
+        System.out.println("------------------------------------------------------");
+    }
 
+    public void printExpenseList(List<Expense> expenses){
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        System.out.println("---------------------------------------------------------");
+        System.out.println("ExpenseID        Amount        Category        Date");
+        System.out.println("---------------------------------------------------------");
+        for(Expense expense:expenses){
+            System.out.printf("%-17s",expense.getExpenseId());
+            System.out.printf("%-14s",expense.getAmount());
+            System.out.printf("%-16s",expense.getCategory());
+            // Format the date
+            if (expense.getDate() != null) {
+                System.out.print(dateFormat.format(expense.getDate()));
+            } else {
+                System.out.print("N/A"); // Handle null dates
+            }
+            System.out.println();
+        }
+        System.out.println("---------------------------------------------------------");
     }
 
 }
