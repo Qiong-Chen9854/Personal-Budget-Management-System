@@ -8,6 +8,7 @@ import org.springframework.stereotype.Component;
 
 import javax.sql.DataSource;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.Map;
 
 @Component
@@ -40,15 +41,30 @@ public class JdbcBudgetDao implements BudgetDao{
     }
 
     @Override
-    public Map<Date, double[]> budgetVsSpending(String dateAsString, int userId) {
+    public Map<String, double[]> budgetVsSpending(String dateAsString, int userId) {
         String sql = "SELECT TO_CHAR(b.month_year, 'YYYY-MM') AS month_year,\n" +
                 "    \tb.amount AS total_budget,\n" +
                 "    \tCOALESCE(SUM(e.amount), 0) AS total_expenses\n" +
                 "FROM budgets b\n" +
                 "LEFT JOIN expenses e ON b.user_id = e.user_id \n" +
                 "          AND TO_CHAR(b.month_year, 'YYYY-MM') = TO_CHAR(e.date, 'YYYY-MM')\n" +
-                "WHERE TO_CHAR(b.month_year, 'YYYY-MM') = '2024-11' AND b.user_id = 1001\n" +
-                "GROUP BY b.month_year, b.amount;\n"
+                "WHERE TO_CHAR(b.month_year, 'YYYY-MM') = ? AND b.user_id = ?\n" +
+                "GROUP BY b.month_year, b.amount;\n";
+        SqlRowSet result = jdbcTemplate.queryForRowSet(sql,dateAsString,userId);
+        if(result.next()){
+            return mapToBudgetVsExpense(result);
+        }
+        throw new DaoException("There is no budget or expense to compare");
+    }
+
+    private Map<String,double[]> mapToBudgetVsExpense(SqlRowSet row){
+        Map<String,double[]> budgetVsExpense = new HashMap<>();
+        double[] be = new double[2];
+        be[0] = row.getDouble("total_budget");
+        be[1] = row.getDouble("total_expenses");
+        String date = row.getString("month_year");
+        budgetVsExpense.put(date,be);
+        return budgetVsExpense;
     }
 
     private Budget mapToBudget(SqlRowSet row){

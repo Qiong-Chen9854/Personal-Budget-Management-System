@@ -9,5 +9,5 @@ public interface BudgetDao {
     Budget createBudget(Budget budget);
     Budget selectBudgetByDate(Date date);
 
-    public Map<Date, double[]> budgetVsSpending(String dateAsString, int userId);
+    Map<String, double[]> budgetVsSpending(String dateAsString, int userId);
 }

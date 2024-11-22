@@ -5,13 +5,11 @@ import com.techelevator.tenmo.model.Budget;
 import com.techelevator.tenmo.model.Expense;
 import com.techelevator.tenmo.model.Income;
 import com.techelevator.tenmo.model.User;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 public class AccountController {
@@ -59,6 +57,10 @@ public class AccountController {
     public Budget createBudget(@RequestBody Budget budget, Principal principal){
         budget.setUserId(getUserId(principal));
         return budgetDao.createBudget(budget);
+    }
+    @RequestMapping(path="/account/report/budgetvsexpense",method = RequestMethod.GET)
+    public Map<String, double[]> budgetVsExpenseByMonth(@RequestParam String date, Principal principal){
+        return budgetDao.budgetVsSpending(date,getUserId(principal));
     }
 
     private int getUserId(Principal principal){
