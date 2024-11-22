@@ -60,7 +60,7 @@ public class AccountController {
         budget.setUserId(getUserId(principal));
         return budgetDao.createBudget(budget);
     }
-    
+
     private int getUserId(Principal principal){
         String userName = principal.getName();
         User user = userDao.getUserByUsername(userName);

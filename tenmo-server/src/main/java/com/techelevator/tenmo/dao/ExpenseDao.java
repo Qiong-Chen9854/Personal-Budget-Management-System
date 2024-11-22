@@ -9,4 +9,5 @@ public interface ExpenseDao {
     Expense getExpenseByExpenseId(int id);
 
     List<Expense> getExpenseList(int userId);
+
 }

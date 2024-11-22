@@ -8,6 +8,7 @@ import org.springframework.stereotype.Component;
 
 import javax.sql.DataSource;
 import java.util.Date;
+import java.util.Map;
 
 @Component
 public class JdbcBudgetDao implements BudgetDao{
@@ -36,6 +37,18 @@ public class JdbcBudgetDao implements BudgetDao{
         }
 
        throw new DaoException("This Budget does not found!");
+    }
+
+    @Override
+    public Map<Date, double[]> budgetVsSpending(String dateAsString, int userId) {
+        String sql = "SELECT TO_CHAR(b.month_year, 'YYYY-MM') AS month_year,\n" +
+                "    \tb.amount AS total_budget,\n" +
+                "    \tCOALESCE(SUM(e.amount), 0) AS total_expenses\n" +
+                "FROM budgets b\n" +
+                "LEFT JOIN expenses e ON b.user_id = e.user_id \n" +
+                "          AND TO_CHAR(b.month_year, 'YYYY-MM') = TO_CHAR(e.date, 'YYYY-MM')\n" +
+                "WHERE TO_CHAR(b.month_year, 'YYYY-MM') = '2024-11' AND b.user_id = 1001\n" +
+                "GROUP BY b.month_year, b.amount;\n"
     }
 
     private Budget mapToBudget(SqlRowSet row){
