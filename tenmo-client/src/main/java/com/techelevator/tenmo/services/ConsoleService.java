@@ -181,7 +181,16 @@ public class ConsoleService {
     }
 
     public void printBudgetVsSpending(Map<String,double[]> budgetVsSpending){
-
+        System.out.println("----------------------------------------------------------");
+        System.out.println("Date             Budget           Spending         Balance");
+        for(Map.Entry<String,double[]> entry: budgetVsSpending.entrySet()){
+            System.out.printf("%-17s",entry.getKey());
+            System.out.printf("%-17s",entry.getValue()[0]);
+            System.out.printf("%-17s",entry.getValue()[1]);
+            System.out.printf("%-17s",entry.getValue()[0] - entry.getValue()[1]);
+        }
+        System.out.println();
+        System.out.println("----------------------------------------------------------");
     }
 
 }

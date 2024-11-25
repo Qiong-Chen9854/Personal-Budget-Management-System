@@ -160,7 +160,7 @@ public class App {
 
     private void getBudgetVsSpending(){
         Map<String, double[]> budgetVsSpending = new HashMap<>();
-        String monthAsString = consoleService.promptForString("Which month You want to check? --> Enter Month('YYYY-MM')); ");
+        String monthAsString = consoleService.promptForString("Which month You want to check? --> Enter Month('YYYY-MM')): ");
         budgetVsSpending = accountService.budgetVsSpendingByMonth(monthAsString);
         consoleService.printBudgetVsSpending(budgetVsSpending);
     }

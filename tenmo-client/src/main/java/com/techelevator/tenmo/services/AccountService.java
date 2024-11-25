@@ -116,7 +116,7 @@ public class AccountService {
 
     public Map<String, double[]> budgetVsSpendingByMonth(String dateAsString){
         Map<String, double[]> budgetVsSpending = new HashMap<>();
-        String url = "/account/report/budgetvsexpense?date=" + dateAsString;
+        String url = baseApiUrl + "/account/report/budgetvsexpense?date=" + dateAsString;
         HttpEntity<String> entity = new HttpEntity<>(headers());
         try{
             ResponseEntity<Map<String, double[]>> response = restTemplate.exchange(url,HttpMethod.GET,entity,
