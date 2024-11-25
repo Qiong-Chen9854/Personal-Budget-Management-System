@@ -9,6 +9,7 @@ import java.math.BigDecimal;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 import java.util.Scanner;
 
 public class ConsoleService {
@@ -55,6 +56,7 @@ public class ConsoleService {
         System.out.println();
         System.out.println("1: View All Your Incomes");
         System.out.println("2: View All Your Expenses");
+        System.out.println("3: View All Your Budget VS Spending");
         System.out.println("0: Exit");
     }
 
@@ -176,6 +178,10 @@ public class ConsoleService {
             System.out.println();
         }
         System.out.println("---------------------------------------------------------");
+    }
+
+    public void printBudgetVsSpending(Map<String,double[]> budgetVsSpending){
+
     }
 
 }

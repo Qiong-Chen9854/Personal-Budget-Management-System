@@ -8,9 +8,7 @@ import com.techelevator.tenmo.services.AccountService;
 import com.techelevator.tenmo.services.AuthenticationService;
 import com.techelevator.tenmo.services.ConsoleService;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 public class App {
 
@@ -142,6 +140,8 @@ public class App {
                 getIncomeList();
             }else if(summaryMenu == 2){
                 getExpenseList();
+            }else if(summaryMenu == 3){
+                getBudgetVsSpending();
             }
         }
 	}
@@ -156,6 +156,13 @@ public class App {
         List<Expense> expenses = new ArrayList<>();
         expenses = accountService.getAllExpense();
         consoleService.printExpenseList(expenses);
+    }
+
+    private void getBudgetVsSpending(){
+        Map<String, double[]> budgetVsSpending = new HashMap<>();
+        String monthAsString = consoleService.promptForString("Which month You want to check? --> Enter Month('YYYY-MM')); ");
+        budgetVsSpending = accountService.budgetVsSpendingByMonth(monthAsString);
+        consoleService.printBudgetVsSpending(budgetVsSpending);
     }
 
 }

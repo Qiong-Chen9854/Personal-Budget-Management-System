@@ -5,13 +5,16 @@ import com.techelevator.tenmo.model.Expense;
 import com.techelevator.tenmo.model.Income;
 import com.techelevator.tenmo.model.User;
 import com.techelevator.util.BasicLogger;
+import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.*;
 import org.springframework.web.client.ResourceAccessException;
 import org.springframework.web.client.RestClientResponseException;
 import org.springframework.web.client.RestTemplate;
 
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class AccountService {
     private String baseApiUrl;
@@ -109,6 +112,22 @@ public class AccountService {
             BasicLogger.log(e.getMessage());
         }
         return Arrays.asList(expenses);
+    }
+
+    public Map<String, double[]> budgetVsSpendingByMonth(String dateAsString){
+        Map<String, double[]> budgetVsSpending = new HashMap<>();
+        String url = "/account/report/budgetvsexpense?date=" + dateAsString;
+        HttpEntity<String> entity = new HttpEntity<>(headers());
+        try{
+            ResponseEntity<Map<String, double[]>> response = restTemplate.exchange(url,HttpMethod.GET,entity,
+                    new ParameterizedTypeReference<Map<String, double[]>>() {});
+            budgetVsSpending = response.getBody();
+        } catch(RestClientResponseException e){
+            BasicLogger.log(e.getRawStatusCode() + ": " + e.getMessage());
+        } catch(ResourceAccessException e){
+            BasicLogger.log(e.getMessage());
+        }
+        return budgetVsSpending;
     }
 
 
