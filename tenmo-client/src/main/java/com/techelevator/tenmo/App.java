@@ -8,6 +8,8 @@ import com.techelevator.tenmo.services.AccountService;
 import com.techelevator.tenmo.services.AuthenticationService;
 import com.techelevator.tenmo.services.ConsoleService;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.*;
 
 public class App {
@@ -68,6 +70,17 @@ public class App {
     }
 
     private void mainMenu() {
+        //check the budget limit
+        LocalDate currentDate = LocalDate.now();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM");
+        String formattedDate = currentDate.format(formatter);
+        Map<String, double[]> budgetVsSpending = new HashMap<>();
+        budgetVsSpending = accountService.budgetVsSpendingByMonth(formattedDate);
+        if(budgetVsSpending.get(formattedDate)[0] - budgetVsSpending.get(formattedDate)[1] < 1000){
+            consoleService.alertBudgetCloseToLimit(formattedDate,budgetVsSpending);
+        }
+
+
         int menuSelection = -1;
         while (menuSelection != 0) {
             consoleService.printMainMenu();

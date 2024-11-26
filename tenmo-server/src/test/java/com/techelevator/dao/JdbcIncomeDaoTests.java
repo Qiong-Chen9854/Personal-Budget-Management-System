@@ -5,18 +5,20 @@ import com.techelevator.tenmo.model.Income;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
+import org.springframework.jdbc.core.JdbcTemplate;
 
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.Date;
 
 public class JdbcIncomeDaoTests extends BaseDaoTests{
-//    private static final Income INCOME_1 = new Income()
+    private JdbcTemplate jdbcTemplate;
     private Income testIncome;
     private JdbcIncomeDao jdbcIncomeDao;
 
     @Before
     public void setup(){
+        jdbcTemplate = new JdbcTemplate(dataSource);
         jdbcIncomeDao = new JdbcIncomeDao(dataSource);
         LocalDate localDate = LocalDate.of(2024,11,15);
         Date date = Date.from(localDate.atStartOfDay(ZoneId.systemDefault()).toInstant());
@@ -32,4 +34,10 @@ public class JdbcIncomeDaoTests extends BaseDaoTests{
         testIncome.setIncomeId(returnIncome.getIncomeId());
         Assert.assertEquals(testIncome,selectedIncome);
     }
+
+//    @After
+//    public void cleanup(){
+//        String deleteIncome = "DELETE FROM incomes WHERE income_id = ? ";
+//        jdbcTemplate.update(deleteIncome, testIncome.getIncomeId());
+//    }
 }

@@ -29,7 +29,7 @@ public class ConsoleService {
 
     public void printGreeting() {
         System.out.println("*********************");
-        System.out.println("* Welcome to TEnmo! *");
+        System.out.println("* Welcome to Your Personal Budget Management System! *");
         System.out.println("*********************");
     }
 
@@ -191,6 +191,14 @@ public class ConsoleService {
         }
         System.out.println();
         System.out.println("----------------------------------------------------------");
+    }
+
+    public void alertBudgetCloseToLimit(String formattedDate, Map<String,double[]> budgetVsSpending){
+        double remain = budgetVsSpending.get(formattedDate)[0] - budgetVsSpending.get(formattedDate)[1];
+        System.out.println("-------------------------------------------------");
+        System.out.println("WARNING!!!!!");
+        System.out.println("Your Budget is close to limit, remain --> $" + remain);
+        System.out.println("-------------------------------------------------");
     }
 
 }
