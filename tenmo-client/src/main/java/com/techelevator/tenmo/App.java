@@ -70,16 +70,8 @@ public class App {
     }
 
     private void mainMenu() {
-        //check the budget limit
-        LocalDate currentDate = LocalDate.now();
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM");
-        String formattedDate = currentDate.format(formatter);
-        Map<String, double[]> budgetVsSpending = new HashMap<>();
-        budgetVsSpending = accountService.budgetVsSpendingByMonth(formattedDate);
-        if(budgetVsSpending.get(formattedDate)[0] - budgetVsSpending.get(formattedDate)[1] < 1000){
-            consoleService.alertBudgetCloseToLimit(formattedDate,budgetVsSpending);
-        }
-
+        //Check if the budget close to limit
+        isBudgetCloseToLimit();
 
         int menuSelection = -1;
         while (menuSelection != 0) {
@@ -178,4 +170,14 @@ public class App {
         consoleService.printBudgetVsSpending(budgetVsSpending);
     }
 
+    private void isBudgetCloseToLimit(){
+        LocalDate currentDate = LocalDate.now();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM");
+        String formattedDate = currentDate.format(formatter);
+        Map<String, double[]> budgetVsSpending = new HashMap<>();
+        budgetVsSpending = accountService.budgetVsSpendingByMonth(formattedDate);
+        if(budgetVsSpending.get(formattedDate)[0] - budgetVsSpending.get(formattedDate)[1] < 500){
+            consoleService.alertBudgetCloseToLimit(formattedDate,budgetVsSpending);
+        }
+    }
 }

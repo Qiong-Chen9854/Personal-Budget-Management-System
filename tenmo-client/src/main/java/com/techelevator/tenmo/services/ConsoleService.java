@@ -147,7 +147,7 @@ public class ConsoleService {
         System.out.println("------------------------------------------------------");
         for(Income income:incomes){
             System.out.printf("%-16s",income.getIncomeId());
-            System.out.printf("%-14s",income.getAmount());
+            System.out.printf("%-14s",String.format("$%.2f", income.getAmount()));
             System.out.printf("%-14s",income.getSource());
             // Format the date
             if (income.getDate() != null) {
@@ -167,7 +167,7 @@ public class ConsoleService {
         System.out.println("---------------------------------------------------------");
         for(Expense expense:expenses){
             System.out.printf("%-17s",expense.getExpenseId());
-            System.out.printf("%-14s",expense.getAmount());
+            System.out.printf("%-14s",String.format("$%.2f",expense.getAmount()));
             System.out.printf("%-16s",expense.getCategory());
             // Format the date
             if (expense.getDate() != null) {
@@ -185,9 +185,9 @@ public class ConsoleService {
         System.out.println("Date             Budget           Spending         Balance");
         for(Map.Entry<String,double[]> entry: budgetVsSpending.entrySet()){
             System.out.printf("%-17s",entry.getKey());
-            System.out.printf("%-17s",entry.getValue()[0]);
-            System.out.printf("%-17s",entry.getValue()[1]);
-            System.out.printf("%-17s",entry.getValue()[0] - entry.getValue()[1]);
+            System.out.printf("%-17s",String.format("$%.2f",entry.getValue()[0]));
+            System.out.printf("%-17s",String.format("$%.2f",entry.getValue()[1]));
+            System.out.printf("%-17s",String.format("$%.2f",(entry.getValue()[0] - entry.getValue()[1])));
         }
         System.out.println();
         System.out.println("----------------------------------------------------------");
