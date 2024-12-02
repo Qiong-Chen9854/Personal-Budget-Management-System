@@ -22,6 +22,12 @@ public class App {
     private AuthenticatedUser currentUser;
     private AccountService accountService = new AccountService(API_BASE_URL);
 
+    private static final String INCOME_SOURCE_01 = "Salary";
+    private static final String INCOME_SOURCE_02 = "Freelance";
+    private static final String INCOME_SOURCE_03 = "Investment";
+    private static final String INCOME_SOURCE_04 = "Gifts";
+
+
     public static void main(String[] args) {
         App app = new App();
         app.run();
@@ -106,7 +112,17 @@ public class App {
 	private void addNewIncome() {
 		// TODO Auto-generated method stub
         double getAmount = consoleService.askUserAmount();
-        String incomeSource = consoleService.promptForString("The Source of Income: ");
+        int sourceId = consoleService.printIncomeSource();
+        String incomeSource = null;
+        if(sourceId == 1){
+            incomeSource = INCOME_SOURCE_01;
+        }else if(sourceId == 2){
+            incomeSource = INCOME_SOURCE_02;
+        }else if(sourceId == 3){
+            incomeSource = INCOME_SOURCE_03;
+        }else if(sourceId == 4){
+            incomeSource = INCOME_SOURCE_04;
+        }
         Date date = consoleService.askDate();
         Income income = new Income();
         income.setAmount(getAmount);

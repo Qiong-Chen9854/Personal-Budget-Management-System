@@ -60,6 +60,19 @@ public class ConsoleService {
         System.out.println("0: Exit");
     }
 
+    public int printIncomeSource(){
+        System.out.println();
+        System.out.println("Id: Income Source ");
+        System.out.println("1:  Salary");
+        System.out.println("2:  Freelance");
+        System.out.println("3:  Investment");
+        System.out.println("4:  Gifts");
+        System.out.println("5:  Create A New Source");
+        System.out.print("Enter the source Id: ");
+        int id = scanner.nextInt();
+        return id;
+    }
+
     public UserCredentials promptForCredentials() {
         String username = promptForString("Username: ");
         String password = promptForString("Password: ");

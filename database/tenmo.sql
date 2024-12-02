@@ -30,6 +30,17 @@ CREATE TABLE account (
 	CONSTRAINT FK_account_tenmo_user FOREIGN KEY (user_id) REFERENCES tenmo_user (user_id)
 );
 
+CREATE SEQUENCE seq_income_source_id
+	INCREMENT BY 1
+	START WITH 6001
+	NO MAXVALUE;
+	
+
+CREATE TABLE income_source(
+	source_id int not null default nextval('seq_income_source_id'),
+	source_name varchar(225);
+)
+
 CREATE SEQUENCE seq_income_id
 	INCREMENT BY 1
 	START WITH 3001
