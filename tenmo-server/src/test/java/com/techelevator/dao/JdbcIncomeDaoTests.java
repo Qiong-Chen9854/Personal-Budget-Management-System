@@ -10,6 +10,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.Date;
+import java.util.List;
 
 public class JdbcIncomeDaoTests extends BaseDaoTests{
     private JdbcTemplate jdbcTemplate;
@@ -33,6 +34,13 @@ public class JdbcIncomeDaoTests extends BaseDaoTests{
         Income selectedIncome = jdbcIncomeDao.getIncomeByIncomeId(returnIncome.getIncomeId());
         testIncome.setIncomeId(returnIncome.getIncomeId());
         Assert.assertEquals(testIncome,selectedIncome);
+    }
+
+    @Test
+    public void get_income_list(){
+        List<Income> incomeList = jdbcIncomeDao.getIncomeList(1001);
+        Assert.assertEquals(2,incomeList.size());
+
     }
 
 //    @After
