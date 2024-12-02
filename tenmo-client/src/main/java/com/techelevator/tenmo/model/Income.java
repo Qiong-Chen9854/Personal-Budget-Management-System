@@ -10,18 +10,18 @@ public class Income {
     private int incomeId;
     private int userId;
     private double amount;
-    private String source;
+    private int sourceId;
     @JsonFormat(pattern = "yyyy-MM-dd")
     private Date date;
 
     public Income() {
     }
 
-    public Income(int incomeId, int userId, double amount, String source, Date date) {
+    public Income(int incomeId, int userId, double amount, int sourceId, Date date) {
         this.incomeId = incomeId;
         this.userId = userId;
         this.amount = amount;
-        this.source = source;
+        this.sourceId = sourceId;
         this.date = date;
     }
 
@@ -49,12 +49,12 @@ public class Income {
         this.amount = amount;
     }
 
-    public String getSource() {
-        return source;
+    public int getSourceId() {
+        return sourceId;
     }
 
-    public void setSource(String source) {
-        this.source = source;
+    public void setSourceId(int sourceId) {
+        this.sourceId = sourceId;
     }
 
     public Date getDate() {
@@ -70,12 +70,12 @@ public class Income {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Income income = (Income) o;
-        return incomeId == income.incomeId && userId == income.userId && Double.compare(income.amount, amount) == 0 && Objects.equals(source, income.source) && Objects.equals(date, income.date);
+        return incomeId == income.incomeId && userId == income.userId && Double.compare(income.amount, amount) == 0 && sourceId == income.sourceId && Objects.equals(date, income.date);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(incomeId, userId, amount, source, date);
+        return Objects.hash(incomeId, userId, amount, sourceId, date);
     }
 
     @Override
@@ -84,7 +84,7 @@ public class Income {
                 "incomeId=" + incomeId +
                 ", userId=" + userId +
                 ", amount=" + amount +
-                ", source='" + source + '\'' +
+                ", sourceId=" + sourceId +
                 ", date=" + date +
                 '}';
     }

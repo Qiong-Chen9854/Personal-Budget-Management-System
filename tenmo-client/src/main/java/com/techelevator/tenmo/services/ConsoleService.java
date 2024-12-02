@@ -70,6 +70,7 @@ public class ConsoleService {
         System.out.println("5:  Create A New Source");
         System.out.print("Enter the source Id: ");
         int id = scanner.nextInt();
+        scanner.nextLine();
         return id;
     }
 
@@ -140,7 +141,7 @@ public class ConsoleService {
     public void printNewIncomeInfo(Income income){
         System.out.print("This new income added into your account --> ");
         System.out.print("Amount: $" + String.valueOf(income.getAmount()));
-        System.out.println("Source: " + income.getSource());
+        System.out.println(" Source: " + income.getSourceId());
     }
 
     public void printNewExpenseInfo(Expense expense){
@@ -161,7 +162,7 @@ public class ConsoleService {
         for(Income income:incomes){
             System.out.printf("%-16s",income.getIncomeId());
             System.out.printf("%-14s",String.format("$%.2f", income.getAmount()));
-            System.out.printf("%-14s",income.getSource());
+            System.out.printf("%-14s",income.getSourceId());
             // Format the date
             if (income.getDate() != null) {
                 System.out.print(dateFormat.format(income.getDate()));
@@ -206,12 +207,12 @@ public class ConsoleService {
         System.out.println("----------------------------------------------------------");
     }
 
-    public void alertBudgetCloseToLimit(String formattedDate, Map<String,double[]> budgetVsSpending){
-        double remain = budgetVsSpending.get(formattedDate)[0] - budgetVsSpending.get(formattedDate)[1];
-        System.out.println("-------------------------------------------------");
-        System.out.println("WARNING!!!!!");
-        System.out.println("Your Budget is close to limit, remain --> $" + remain);
-        System.out.println("-------------------------------------------------");
-    }
+//    public void alertBudgetCloseToLimit(String formattedDate, Map<String,double[]> budgetVsSpending){
+//        double remain = budgetVsSpending.get(formattedDate)[0] - budgetVsSpending.get(formattedDate)[1];
+//        System.out.println("-------------------------------------------------");
+//        System.out.println("WARNING!!!!!");
+//        System.out.println("Your Budget is close to limit, remain --> $" + remain);
+//        System.out.println("-------------------------------------------------");
+//    }
 
 }

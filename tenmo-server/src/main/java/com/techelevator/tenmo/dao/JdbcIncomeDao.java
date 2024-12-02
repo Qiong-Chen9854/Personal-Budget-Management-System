@@ -22,9 +22,9 @@ public class JdbcIncomeDao implements IncomeDao{
 
     @Override
     public Income createNewIncome(Income income) {
-        String sql = "INSERT INTO incomes(user_id,amount,source,date)\n" +
+        String sql = "INSERT INTO incomes(user_id,amount,source_id,date)\n" +
                 "VALUES(?,?,?,?) RETURNING income_id ";
-        int incomeId = jdbcTemplate.queryForObject(sql,int.class,income.getUserId(),income.getAmount(),income.getSource(),
+        int incomeId = jdbcTemplate.queryForObject(sql,int.class,income.getUserId(),income.getAmount(),income.getSourceId(),
                 income.getDate());
         income.setIncomeId(incomeId);
 
@@ -38,7 +38,7 @@ public class JdbcIncomeDao implements IncomeDao{
 
     @Override
     public Income getIncomeByIncomeId(int incomeId) {
-        String sql = "SELECT income_id, user_id, amount, source, date\n" +
+        String sql = "SELECT income_id, user_id, amount, source_id, date\n" +
                 "FROM incomes\n" +
                 "WHERE income_id = ? \n";
 
@@ -52,7 +52,7 @@ public class JdbcIncomeDao implements IncomeDao{
     @Override
     public List<Income> getIncomeList(int userId) {
         List<Income> incomeList = new ArrayList<>();
-        String sql = "SELECT income_id, user_id, amount, source, date\n" +
+        String sql = "SELECT income_id, user_id, amount, source_id, date\n" +
                 "FROM incomes\n" +
                 "WHERE user_id = ? ";
         try{
@@ -74,7 +74,7 @@ public class JdbcIncomeDao implements IncomeDao{
         income.setIncomeId(row.getInt("income_id"));
         income.setUserId(row.getInt("user_id"));
         income.setAmount(row.getDouble("amount"));
-        income.setSource(row.getString("source"));
+        income.setSourceId(row.getInt("source_id"));
         if(row.getDate("date") != null){
             income.setDate(row.getDate("date"));
         }

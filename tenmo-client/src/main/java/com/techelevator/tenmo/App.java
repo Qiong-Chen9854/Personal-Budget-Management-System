@@ -8,8 +8,6 @@ import com.techelevator.tenmo.services.AccountService;
 import com.techelevator.tenmo.services.AuthenticationService;
 import com.techelevator.tenmo.services.ConsoleService;
 
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.*;
 
 public class App {
@@ -22,10 +20,10 @@ public class App {
     private AuthenticatedUser currentUser;
     private AccountService accountService = new AccountService(API_BASE_URL);
 
-    private static final String INCOME_SOURCE_01 = "Salary";
-    private static final String INCOME_SOURCE_02 = "Freelance";
-    private static final String INCOME_SOURCE_03 = "Investment";
-    private static final String INCOME_SOURCE_04 = "Gifts";
+    private static final int INCOME_SOURCE_SALARY = 6001;
+    private static final int INCOME_SOURCE_FREELANCE = 6002;
+    private static final int INCOME_SOURCE_INVESTMENT = 6003;
+    private static final int INCOME_SOURCE_GIFTS = 6004;
 
 
     public static void main(String[] args) {
@@ -77,7 +75,7 @@ public class App {
 
     private void mainMenu() {
         //Check if the budget close to limit
-        isBudgetCloseToLimit();
+//        isBudgetCloseToLimit();
 
         int menuSelection = -1;
         while (menuSelection != 0) {
@@ -113,20 +111,21 @@ public class App {
 		// TODO Auto-generated method stub
         double getAmount = consoleService.askUserAmount();
         int sourceId = consoleService.printIncomeSource();
-        String incomeSource = null;
+        int incomeSourceId = -1;
         if(sourceId == 1){
-            incomeSource = INCOME_SOURCE_01;
+            incomeSourceId = INCOME_SOURCE_SALARY;
         }else if(sourceId == 2){
-            incomeSource = INCOME_SOURCE_02;
+            incomeSourceId = INCOME_SOURCE_FREELANCE;
         }else if(sourceId == 3){
-            incomeSource = INCOME_SOURCE_03;
+            incomeSourceId = INCOME_SOURCE_INVESTMENT;
         }else if(sourceId == 4){
-            incomeSource = INCOME_SOURCE_04;
+            incomeSourceId = INCOME_SOURCE_GIFTS;
         }
-        Date date = consoleService.askDate();
         Income income = new Income();
+        income.setSourceId(incomeSourceId);
+        Date date = consoleService.askDate();
         income.setAmount(getAmount);
-        income.setSource(incomeSource);
+
         income.setDate(date);
         income = accountService.addIncome(income);
         consoleService.printNewIncomeInfo(income);
@@ -186,14 +185,14 @@ public class App {
         consoleService.printBudgetVsSpending(budgetVsSpending);
     }
 
-    private void isBudgetCloseToLimit(){
-        LocalDate currentDate = LocalDate.now();
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM");
-        String formattedDate = currentDate.format(formatter);
-        Map<String, double[]> budgetVsSpending = new HashMap<>();
-        budgetVsSpending = accountService.budgetVsSpendingByMonth(formattedDate);
-        if(budgetVsSpending.get(formattedDate)[0] - budgetVsSpending.get(formattedDate)[1] < 500){
-            consoleService.alertBudgetCloseToLimit(formattedDate,budgetVsSpending);
-        }
-    }
+//    private void isBudgetCloseToLimit(){
+//        LocalDate currentDate = LocalDate.now();
+//        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM");
+//        String formattedDate = currentDate.format(formatter);
+//        Map<String, double[]> budgetVsSpending = new HashMap<>();
+//        budgetVsSpending = accountService.budgetVsSpendingByMonth(formattedDate);
+//        if(budgetVsSpending.get(formattedDate)[0] - budgetVsSpending.get(formattedDate)[1] < 500){
+//            consoleService.alertBudgetCloseToLimit(formattedDate,budgetVsSpending);
+//        }
+//    }
 }

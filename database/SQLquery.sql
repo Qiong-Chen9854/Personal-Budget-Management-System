@@ -14,7 +14,7 @@ FROM account
 SELECT *
 FROM budgets
 
-SELECT expense_id, user_id, amount, category, date
+SELECT expense_id, user_id, amount, category_id, date
 FROM expenses
 WHERE user_id = 1001
 
@@ -24,23 +24,40 @@ where user_id = 1001
 Delete from budgets
 where user_id = 1001
 
+SELECT *
+FROM income_source
+
+SELECT *
+FROM expense_category
+
+INSERT INTO income_source(source_id,name)VALUES(6001,'Salary');
+INSERT INTO income_source(source_id,name)VALUES(6002,'Freelance');
+INSERT INTO income_source(source_id,name)VALUES(6003,'Investment');
+INSERT INTO income_source(source_id,name)VALUES(6004,'Gifts');
+
+INSERT INTO expense_category(category_id,name)VALUES(7001,'Housing');
+INSERT INTO expense_category(category_id,name)VALUES(7002,'Food');
+INSERT INTO expense_category(category_id,name)VALUES(7003,'Transportation');
+INSERT INTO expense_category(category_id,name)VALUES(7004,'Shopping');
+
+
 
 
 
 -- create a new income
-INSERT INTO incomes(user_id,amount,source,date)
-VALUES(1001,200,'Freelance','2024-11-14') RETURNING income_id;
+INSERT INTO incomes(user_id,amount,source_id,date)
+VALUES(1001,200,6002,'2024-11-14') RETURNING income_id;
 
 UPDATE account
 SET balance = balance + 200
 WHERE user_id = 1001;
 
 -- create a new expense
-INSERT INTO expenses(user_id,amount,category,date)
-VALUES(1001,100,'Food','2024-11-18') RETURNING expense_id
+INSERT INTO expenses(user_id,amount,category_id,date)
+VALUES(1001,100,7002,'2024-11-18') RETURNING expense_id
 
-INSERT INTO expenses(user_id,amount,category,date)
-VALUES(1001,20,'Food','2024-11-22') RETURNING expense_id
+INSERT INTO expenses(user_id,amount,category_id,date)
+VALUES(1001,20,7002,'2024-11-22') RETURNING expense_id
 
 INSERT INTO budgets(user_id, amount, month_year)
 VALUES(1001,200,'2024-11-01') RETURNING budget_id
@@ -51,11 +68,11 @@ WHERE user_id = 1001
 
 
 
-SELECT income_id, user_id, amount, source, date
+SELECT income_id, user_id, amount, source_id, date
 FROM incomes
 WHERE income_id = 3001
 
-SELECT expense_id, user_id, amount, category, date
+SELECT expense_id, user_id, amount, category_id, date
 FROM expenses
 WHERE expense_id = 4001
 

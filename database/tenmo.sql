@@ -1,7 +1,7 @@
 BEGIN TRANSACTION;
 -- ROLLBACK;
-DROP TABLE IF EXISTS budgets, expenses,incomes, account,tenmo_user;
-DROP SEQUENCE IF EXISTS seq_user_id, seq_account_id, seq_income_id,seq_expense_id,seq_budget_id;
+DROP TABLE IF EXISTS budgets, expense_category,expenses,income_source,incomes, account,tenmo_user;
+DROP SEQUENCE IF EXISTS seq_user_id, seq_account_id,seq_income_source_id,seq_income_id,seq_expense_category_id,seq_expense_id,seq_budget_id;
 
 CREATE SEQUENCE seq_user_id
   INCREMENT BY 1
@@ -38,8 +38,8 @@ CREATE SEQUENCE seq_income_source_id
 
 CREATE TABLE income_source(
 	source_id int not null default nextval('seq_income_source_id'),
-	source_name varchar(225);
-)
+	name varchar(225)
+);
 
 CREATE SEQUENCE seq_income_id
 	INCREMENT BY 1
@@ -50,10 +50,21 @@ CREATE TABLE incomes(
 	income_id int not null default nextval('seq_income_id'),
 	user_id int,
 	amount numeric(12,2) default 0.00,
-	source varchar(225),
+	source_id int,
 	date DATE default current_date,
 	CONSTRAINT pk_incomes PRIMARY KEY(income_id),
 	CONSTRAINT fk_incomes foreign key (user_id) references tenmo_user(user_id)
+);
+
+CREATE SEQUENCE seq_expense_category_id
+	INCREMENT BY 1
+	START WITH 7001
+	NO MAXVALUE;
+	
+
+CREATE TABLE expense_category(
+	category_id int not null default nextval('seq_expense_category_id'),
+	name varchar(225)
 );
 
 CREATE SEQUENCE seq_expense_id
@@ -65,7 +76,7 @@ CREATE TABLE expenses(
 	expense_id int not null default nextval('seq_expense_id'),
 	user_id int,
 	amount numeric(12,2) default 0.00,
-	category varchar(225),
+	category_id int,
 	date DATE default current_date,
 	CONSTRAINT pk_expenses PRIMARY KEY (expense_id),
 	CONSTRAINT fk_expenses FOREIGN KEY (user_id) REFERENCES tenmo_user(user_id)

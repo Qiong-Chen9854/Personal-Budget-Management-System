@@ -1,7 +1,7 @@
 BEGIN TRANSACTION;
 -- ROLLBACK;
-DROP TABLE IF EXISTS budgets, expenses,incomes, account,tenmo_user;
-DROP SEQUENCE IF EXISTS seq_user_id, seq_account_id, seq_income_id,seq_expense_id,seq_budget_id;
+DROP TABLE IF EXISTS budgets, expense_category,expenses,income_source,incomes, account,tenmo_user;
+DROP SEQUENCE IF EXISTS seq_user_id, seq_account_id,seq_income_source_id,seq_income_id,seq_expense_category_id,seq_expense_id,seq_budget_id;
 
 CREATE SEQUENCE seq_user_id
   INCREMENT BY 1
@@ -30,6 +30,17 @@ CREATE TABLE account (
 	CONSTRAINT FK_account_tenmo_user FOREIGN KEY (user_id) REFERENCES tenmo_user (user_id)
 );
 
+CREATE SEQUENCE seq_income_source_id
+	INCREMENT BY 1
+	START WITH 6001
+	NO MAXVALUE;
+
+
+CREATE TABLE income_source(
+	source_id int not null default nextval('seq_income_source_id'),
+	name varchar(225)
+);
+
 CREATE SEQUENCE seq_income_id
 	INCREMENT BY 1
 	START WITH 3001
@@ -39,10 +50,21 @@ CREATE TABLE incomes(
 	income_id int not null default nextval('seq_income_id'),
 	user_id int,
 	amount numeric(12,2) default 0.00,
-	source varchar(225),
+	source_id int,
 	date DATE default current_date,
 	CONSTRAINT pk_incomes PRIMARY KEY(income_id),
 	CONSTRAINT fk_incomes foreign key (user_id) references tenmo_user(user_id)
+);
+
+CREATE SEQUENCE seq_expense_category_id
+	INCREMENT BY 1
+	START WITH 7001
+	NO MAXVALUE;
+
+
+CREATE TABLE expense_category(
+	category_id int not null default nextval('seq_expense_category_id'),
+	name varchar(225)
 );
 
 CREATE SEQUENCE seq_expense_id
@@ -54,7 +76,7 @@ CREATE TABLE expenses(
 	expense_id int not null default nextval('seq_expense_id'),
 	user_id int,
 	amount numeric(12,2) default 0.00,
-	category varchar(225),
+	category_id int,
 	date DATE default current_date,
 	CONSTRAINT pk_expenses PRIMARY KEY (expense_id),
 	CONSTRAINT fk_expenses FOREIGN KEY (user_id) REFERENCES tenmo_user(user_id)
@@ -74,6 +96,18 @@ CREATE TABLE budgets(
 	CONSTRAINT fk_budgets FOREIGN KEY (user_id) REFERENCES tenmo_user(user_id)
 );
 
+-- Insert sample income_source
+INSERT INTO income_source(source_id,name)VALUES(6001,'Salary');
+INSERT INTO income_source(source_id,name)VALUES(6002,'Freelance');
+INSERT INTO income_source(source_id,name)VALUES(6003,'Investment');
+INSERT INTO income_source(source_id,name)VALUES(6004,'Gifts');
+
+-- Insert sample expense_category
+INSERT INTO expense_category(category_id,name)VALUES(7001,'Housing');
+INSERT INTO expense_category(category_id,name)VALUES(7002,'Food');
+INSERT INTO expense_category(category_id,name)VALUES(7003,'Transportation');
+INSERT INTO expense_category(category_id,name)VALUES(7004,'Shopping');
+
 -- Insert sample users
 INSERT INTO tenmo_user (username, password_hash, role)
 VALUES
@@ -89,20 +123,20 @@ VALUES
     (1003, 5000.00);
 
 -- Insert sample incomes
-INSERT INTO incomes (user_id, amount, source, date)
+INSERT INTO incomes (user_id, amount, source_id, date)
 VALUES
-    (1001, 3000.00, 'Salary', '2024-01-15'),
-    (1002, 1500.00, 'Freelance', '2024-02-01'),
-    (1001, 200.00, 'Gift', '2024-02-05'),
-    (1003, 2500.00, 'Investment', '2024-03-10');
+    (1001, 3000.00, 6001, '2024-01-15'),
+    (1002, 1500.00, 6002, '2024-02-01'),
+    (1001, 200.00, 6004, '2024-02-05'),
+    (1003, 2500.00, 6003, '2024-03-10');
 
 -- Insert sample expenses with restricted categories
-INSERT INTO expenses (user_id, amount, category, date)
+INSERT INTO expenses (user_id, amount, category_id, date)
 VALUES
-    (1001, 150.00, 'Food', '2024-01-16'),
-    (1002, 75.00, 'Entertainment', '2024-02-05'),
-    (1003, 1200.00, 'Housing', '2024-03-01'),
-    (1001, 45.00, 'Transportation', '2024-01-20');
+    (1001, 150.00, 7002, '2024-01-16'),
+    (1002, 75.00, 7004, '2024-02-05'),
+    (1003, 1200.00, 7001, '2024-03-01'),
+    (1001, 45.00, 7004, '2024-01-20');
 
 -- Insert sample budgets with restricted categories
 INSERT INTO budgets (user_id, amount, month_year)
