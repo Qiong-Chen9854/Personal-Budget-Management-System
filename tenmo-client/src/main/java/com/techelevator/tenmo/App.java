@@ -25,6 +25,11 @@ public class App {
     private static final int INCOME_SOURCE_INVESTMENT = 6003;
     private static final int INCOME_SOURCE_GIFTS = 6004;
 
+    private static final int EXPENSE_CATEGORY_HOUSING = 7001;
+    private static final int EXPENSE_CATEGORY_FOOD = 7002;
+    private static final int EXPENSE_CATEGORY_TRANSPORTATION = 7003;
+    private static final int EXPENSE_CATEGORY_SHOPPING = 7004;
+
 
     public static void main(String[] args) {
         App app = new App();
@@ -134,11 +139,21 @@ public class App {
 	private void addNewExpense() {
 		// TODO Auto-generated method stub
         double getAmount = consoleService.askUserAmount();
-        String expenseCategory = consoleService.promptForString("The Category of Expense: ");
+        int categoryId = consoleService.printExpenseCategory();
+        int expenseCategoryId = -1;
+        if(categoryId == 1){
+            expenseCategoryId = EXPENSE_CATEGORY_HOUSING;
+        }else if(categoryId == 2){
+            expenseCategoryId = EXPENSE_CATEGORY_FOOD;
+        }else if(categoryId == 3){
+            expenseCategoryId = EXPENSE_CATEGORY_TRANSPORTATION;
+        }else if(categoryId == 4){
+            expenseCategoryId = EXPENSE_CATEGORY_SHOPPING;
+        }
         Date date = consoleService.askDate();
         Expense expense = new Expense();
         expense.setAmount(getAmount);
-        expense.setCategory(expenseCategory);
+        expense.setExpenseId(expenseCategoryId);
         expense.setDate(date);
         expense = accountService.createNewExpense(expense);
         consoleService.printNewExpenseInfo(expense);

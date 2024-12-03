@@ -74,6 +74,20 @@ public class ConsoleService {
         return id;
     }
 
+    public int printExpenseCategory(){
+        System.out.println();
+        System.out.println("Id: Expense Category ");
+        System.out.println("1:  Housing");
+        System.out.println("2:  Food");
+        System.out.println("3:  Transportation");
+        System.out.println("4:  Shopping");
+        System.out.println("5:  Create A New Category");
+        System.out.print("Enter the Category Id: ");
+        int id = scanner.nextInt();
+        scanner.nextLine();
+        return id;
+    }
+
     public UserCredentials promptForCredentials() {
         String username = promptForString("Username: ");
         String password = promptForString("Password: ");

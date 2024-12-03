@@ -9,18 +9,18 @@ public class Expense {
     private int expenseId;
     private int userId;
     private double amount;
-    private String category;
+    private int categoryId;
     @JsonFormat(pattern = "yyyy-MM-dd")
     private Date date;
 
     public Expense() {
     }
 
-    public Expense(int expenseId, int userId, double amount, String category, Date date) {
+    public Expense(int expenseId, int userId, double amount, int categoryId, Date date) {
         this.expenseId = expenseId;
         this.userId = userId;
         this.amount = amount;
-        this.category = category;
+        this.categoryId = categoryId;
         this.date = date;
     }
 
@@ -48,12 +48,12 @@ public class Expense {
         this.amount = amount;
     }
 
-    public String getCategory() {
-        return category;
+    public int getCategoryId() {
+        return categoryId;
     }
 
-    public void setCategory(String category) {
-        this.category = category;
+    public void setCategoryId(int categoryId) {
+        this.categoryId = categoryId;
     }
 
     public Date getDate() {
@@ -64,18 +64,17 @@ public class Expense {
         this.date = date;
     }
 
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Expense expense = (Expense) o;
-        return expenseId == expense.expenseId && userId == expense.userId && Double.compare(expense.amount, amount) == 0 && Objects.equals(category, expense.category) && Objects.equals(date, expense.date);
+        return expenseId == expense.expenseId && userId == expense.userId && Double.compare(expense.amount, amount) == 0 && categoryId == expense.categoryId && Objects.equals(date, expense.date);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(expenseId, userId, amount, category, date);
+        return Objects.hash(expenseId, userId, amount, categoryId, date);
     }
 
     @Override
@@ -84,7 +83,7 @@ public class Expense {
                 "expenseId=" + expenseId +
                 ", userId=" + userId +
                 ", amount=" + amount +
-                ", category='" + category + '\'' +
+                ", categoryId=" + categoryId +
                 ", date=" + date +
                 '}';
     }
