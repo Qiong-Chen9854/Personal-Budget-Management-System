@@ -28,7 +28,7 @@ Financial Reporting and Exporting
 [Incomplete] As a user, I need to export my financial data to a CSV file for offline access.
 
 ## Sample screens
-Sample Screens
+<!-- Sample Screens
 Use case 2: View Account Balance
 Your current account balance is: $1000.00
 Use case 3: Add Income Entry
@@ -58,4 +58,4 @@ Utilities          $250             $200
 
 Use case 7: Summary Report
 Income vs Expenses Summary for [month/year]
-Spending by Category
+Spending by Category -->
