@@ -25,10 +25,10 @@ public class JdbcExpenseDao implements ExpenseDao{
     }
     @Override
     public Expense createNewExpense(Expense expense) {
-        String sqlToCreateExpense = "INSERT INTO expenses(user_id,amount,category,date)\n" +
+        String sqlToCreateExpense = "INSERT INTO expenses(user_id,amount,category_id,date)\n" +
                 "VALUES(?,?,?,?) RETURNING expense_id ";
         int expenseId = jdbcTemplate.queryForObject(sqlToCreateExpense,int.class,expense.getUserId(),expense.getAmount(),
-                expense.getCategory(),expense.getDate());
+                expense.getCategoryId(),expense.getDate());
         expense.setExpenseId(expenseId);
 
         String updateAccountBalance = "UPDATE account\n" +
@@ -40,7 +40,7 @@ public class JdbcExpenseDao implements ExpenseDao{
 
     @Override
     public Expense getExpenseByExpenseId(int id) {
-        String sql = "SELECT expense_id, user_id, amount, category, date\n" +
+        String sql = "SELECT expense_id, user_id, amount, category_id, date\n" +
                 "FROM expenses\n" +
                 "WHERE expense_id = ? ";
 
@@ -54,7 +54,7 @@ public class JdbcExpenseDao implements ExpenseDao{
     @Override
     public List<Expense> getExpenseList(int userId) {
         List<Expense> expenseList = new ArrayList<>();
-        String sql = "SELECT expense_id, user_id, amount, category, date\n" +
+        String sql = "SELECT expense_id, user_id, amount, category_id, date\n" +
                 "FROM expenses\n" +
                 "WHERE user_id = ? ";
         SqlRowSet results = jdbcTemplate.queryForRowSet(sql, userId);
@@ -71,7 +71,7 @@ public class JdbcExpenseDao implements ExpenseDao{
         expense.setExpenseId(row.getInt("expense_id"));
         expense.setUserId(row.getInt("user_id"));
         expense.setAmount(row.getDouble("amount"));
-        expense.setCategory(row.getString("category"));
+        expense.setCategoryId(row.getInt("category_id"));
         if(row.getDate("date") != null){
             expense.setDate(row.getDate("date"));
         }
