@@ -10,17 +10,20 @@ public class Expense {
     private int userId;
     private double amount;
     private int categoryId;
+
+    private String categoryName;
     @JsonFormat(pattern = "yyyy-MM-dd")
     private Date date;
 
     public Expense() {
     }
 
-    public Expense(int expenseId, int userId, double amount, int categoryId, Date date) {
+    public Expense(int expenseId, int userId, double amount, int categoryId, String categoryName, Date date) {
         this.expenseId = expenseId;
         this.userId = userId;
         this.amount = amount;
         this.categoryId = categoryId;
+        this.categoryName = categoryName;
         this.date = date;
     }
 
@@ -56,6 +59,14 @@ public class Expense {
         this.categoryId = categoryId;
     }
 
+    public String getCategoryName() {
+        return categoryName;
+    }
+
+    public void setCategoryName(String categoryName) {
+        this.categoryName = categoryName;
+    }
+
     public Date getDate() {
         return date;
     }
@@ -69,12 +80,12 @@ public class Expense {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Expense expense = (Expense) o;
-        return expenseId == expense.expenseId && userId == expense.userId && Double.compare(expense.amount, amount) == 0 && categoryId == expense.categoryId && Objects.equals(date, expense.date);
+        return expenseId == expense.expenseId && userId == expense.userId && Double.compare(expense.amount, amount) == 0 && categoryId == expense.categoryId && Objects.equals(categoryName, expense.categoryName) && Objects.equals(date, expense.date);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(expenseId, userId, amount, categoryId, date);
+        return Objects.hash(expenseId, userId, amount, categoryId, categoryName, date);
     }
 
     @Override
@@ -84,6 +95,7 @@ public class Expense {
                 ", userId=" + userId +
                 ", amount=" + amount +
                 ", categoryId=" + categoryId +
+                ", categoryName='" + categoryName + '\'' +
                 ", date=" + date +
                 '}';
     }

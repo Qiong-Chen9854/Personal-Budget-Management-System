@@ -92,4 +92,8 @@ LEFT JOIN expenses e ON b.user_id = e.user_id
 WHERE TO_CHAR(b.month_year, 'YYYY-MM') = '2024-11' AND user_id = 1001
 GROUP BY b.month_year, b.amount;
 
+SELECT name
+FROM expense_category
+WHERE category_id = 7001
+
 

@@ -75,9 +75,22 @@ public class JdbcIncomeDao implements IncomeDao{
         income.setUserId(row.getInt("user_id"));
         income.setAmount(row.getDouble("amount"));
         income.setSourceId(row.getInt("source_id"));
+        income.setSourceName(getSourceName(row.getInt("source_id")));
         if(row.getDate("date") != null){
             income.setDate(row.getDate("date"));
         }
         return income;
+    }
+
+    private String getSourceName(int sourceId){
+        String sql = "SELECT name\n" +
+                "FROM income_source\n" +
+                "WHERE source_id = ?";
+        SqlRowSet result = jdbcTemplate.queryForRowSet(sql,sourceId);
+        String sourceName = null;
+        if(result.next()){
+            sourceName = result.getString("name");
+        }
+        return sourceName;
     }
 }

@@ -23,7 +23,7 @@ public class JdbcIncomeDaoTests extends BaseDaoTests{
         jdbcIncomeDao = new JdbcIncomeDao(dataSource);
         LocalDate localDate = LocalDate.of(2024,11,15);
         Date date = Date.from(localDate.atStartOfDay(ZoneId.systemDefault()).toInstant());
-        testIncome = new Income(0,1001,100,6002, date);
+        testIncome = new Income(0,1001,100,6002,null,date);
     }
 
     @Test

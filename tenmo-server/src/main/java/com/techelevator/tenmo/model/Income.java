@@ -11,17 +11,19 @@ public class Income {
     private int userId;
     private double amount;
     private int sourceId;
+    private String sourceName;
     @JsonFormat(pattern = "yyyy-MM-dd")
     private Date date;
 
     public Income() {
     }
 
-    public Income(int incomeId, int userId, double amount, int sourceId, Date date) {
+    public Income(int incomeId, int userId, double amount, int sourceId,String sourceName, Date date) {
         this.incomeId = incomeId;
         this.userId = userId;
         this.amount = amount;
         this.sourceId = sourceId;
+        this.sourceName = sourceName;
         this.date = date;
     }
 
@@ -57,6 +59,14 @@ public class Income {
         this.sourceId = sourceId;
     }
 
+    public String getSourceName() {
+        return sourceName;
+    }
+
+    public void setSourceName(String sourceName) {
+        this.sourceName = sourceName;
+    }
+
     public Date getDate() {
         return date;
     }
@@ -70,12 +80,12 @@ public class Income {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Income income = (Income) o;
-        return incomeId == income.incomeId && userId == income.userId && Double.compare(income.amount, amount) == 0 && sourceId == income.sourceId && Objects.equals(date, income.date);
+        return incomeId == income.incomeId && userId == income.userId && Double.compare(income.amount, amount) == 0 && sourceId == income.sourceId && Objects.equals(sourceName, income.sourceName) && Objects.equals(date, income.date);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(incomeId, userId, amount, sourceId, date);
+        return Objects.hash(incomeId, userId, amount, sourceId, sourceName, date);
     }
 
     @Override
@@ -85,6 +95,7 @@ public class Income {
                 ", userId=" + userId +
                 ", amount=" + amount +
                 ", sourceId=" + sourceId +
+                ", sourceName='" + sourceName + '\'' +
                 ", date=" + date +
                 '}';
     }
