@@ -72,13 +72,23 @@ public class JdbcExpenseDao implements ExpenseDao{
         expense.setUserId(row.getInt("user_id"));
         expense.setAmount(row.getDouble("amount"));
         expense.setCategoryId(row.getInt("category_id"));
+        String categoryName = getCategoryName(row.getInt("category_id"));
+        expense.setCategoryName(categoryName);
         if(row.getDate("date") != null){
             expense.setDate(row.getDate("date"));
         }
-
         return expense;
-
     }
 
-
+    private String getCategoryName(int categoryId){
+        String sql = "SELECT name\n" +
+                "FROM expense_category\n" +
+                "WHERE category_id = ?";
+        SqlRowSet result = jdbcTemplate.queryForRowSet(sql,categoryId);
+        String categoryName = null;
+        while(result.next()){
+            categoryName = result.getString("name");
+        }
+        return categoryName;
+    }
 }

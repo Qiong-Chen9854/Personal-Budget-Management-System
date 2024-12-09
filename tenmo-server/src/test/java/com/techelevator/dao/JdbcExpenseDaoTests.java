@@ -23,7 +23,7 @@ public class JdbcExpenseDaoTests extends BaseDaoTests{
         jdbcTemplate = new JdbcTemplate(dataSource);
         LocalDate localDate = LocalDate.of(2024,11,18);
         Date date = Date.from(localDate.atStartOfDay(ZoneId.systemDefault()).toInstant());
-        testExpense = new Expense(0,1001,100,7002,date);
+        testExpense = new Expense(0,1001,100,7002,null,date);
     }
 
     @Test
