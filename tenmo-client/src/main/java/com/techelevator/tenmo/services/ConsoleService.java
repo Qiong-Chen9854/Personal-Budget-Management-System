@@ -134,8 +134,8 @@ public class ConsoleService {
         System.out.println("Your current account balance is : $" + String.valueOf(balance));
     }
 
-    public double askUserAmount(){
-        System.out.print("What is the amount for this transaction: ");
+    public double askUserAmount(String str){
+        System.out.print(str);
         double amount = Double.parseDouble(scanner.nextLine());
         return amount;
     }
@@ -158,6 +158,8 @@ public class ConsoleService {
         try {
             // Append "-01" to ensure the format matches "yyyy-MM-dd"
             String userInput = scanner.nextLine();
+            // Put 02 because has the issue with date, if put 01: input "2024-11" will show in database as "2024-10-31"
+            // With 02, input "2024-11" will show in database as "2024-11-01" -- the result is I need.
             String fullDate = userInput + "-02";
             Date date = formatter.parse(fullDate);
             return date;

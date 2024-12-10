@@ -111,7 +111,7 @@ public class App {
 
 	private void addNewIncome() {
 		// TODO Auto-generated method stub
-        double getAmount = consoleService.askUserAmount();
+        double getAmount = consoleService.askUserAmount("What is the amount for this transaction: ");
         int sourceId = consoleService.printIncomeSource();
         int incomeSourceId = -1;
         if(sourceId == 1){
@@ -135,7 +135,7 @@ public class App {
 
 	private void addNewExpense() {
 		// TODO Auto-generated method stub
-        double getAmount = consoleService.askUserAmount();
+        double getAmount = consoleService.askUserAmount("What is the amount for this transaction: ");
         int categoryId = consoleService.printExpenseCategory();
         int expenseCategoryId = -1;
         if(categoryId == 1){
@@ -159,7 +159,7 @@ public class App {
 
 	private void setBudget() {
 		// TODO Auto-generated method stub
-        double getAmount = consoleService.askUserAmount();
+        double getAmount = consoleService.askUserAmount("What is the amount for this budget setting: ");
         Date date = consoleService.askDateForBudget();
         Budget budget = new Budget();
         budget.setAmount(getAmount);
