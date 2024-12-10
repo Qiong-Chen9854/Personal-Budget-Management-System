@@ -1,9 +1,6 @@
 package com.techelevator.tenmo.services;
 
-import com.techelevator.tenmo.model.AuthenticatedUser;
-import com.techelevator.tenmo.model.Expense;
-import com.techelevator.tenmo.model.Income;
-import com.techelevator.tenmo.model.User;
+import com.techelevator.tenmo.model.*;
 import com.techelevator.util.BasicLogger;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.*;
@@ -96,6 +93,20 @@ public class AccountService {
         }
 
         return expense;
+    }
+
+    public Budget createBudget(Budget budget){
+        String url = baseApiUrl + "/account/budget";
+        HttpEntity<Budget> entity = new HttpEntity<>(budget,headers());
+        try{
+            ResponseEntity<Budget> response = restTemplate.exchange(url,HttpMethod.POST,entity, Budget.class);
+            budget = response.getBody();
+        } catch (RestClientResponseException e){
+            BasicLogger.log(e.getRawStatusCode() + ": " + e.getMessage());
+        } catch(ResourceAccessException e){
+            BasicLogger.log(e.getMessage());
+        }
+        return budget;
     }
 
     public List<Expense> getAllExpense(){

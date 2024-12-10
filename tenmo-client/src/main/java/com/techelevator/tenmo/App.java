@@ -1,9 +1,6 @@
 package com.techelevator.tenmo;
 
-import com.techelevator.tenmo.model.AuthenticatedUser;
-import com.techelevator.tenmo.model.Expense;
-import com.techelevator.tenmo.model.Income;
-import com.techelevator.tenmo.model.UserCredentials;
+import com.techelevator.tenmo.model.*;
 import com.techelevator.tenmo.services.AccountService;
 import com.techelevator.tenmo.services.AuthenticationService;
 import com.techelevator.tenmo.services.ConsoleService;
@@ -162,7 +159,12 @@ public class App {
 
 	private void setBudget() {
 		// TODO Auto-generated method stub
-		
+        double getAmount = consoleService.askUserAmount();
+        Date date = consoleService.askDateForBudget();
+        Budget budget = new Budget();
+        budget.setAmount(getAmount);
+        budget.setMonthYear(date);
+        accountService.createBudget(budget);
 	}
 
 	private void summaryReport() {

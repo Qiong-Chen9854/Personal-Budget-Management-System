@@ -135,7 +135,7 @@ public class ConsoleService {
     }
 
     public double askUserAmount(){
-        System.out.print("The Income Amount: ");
+        System.out.print("What is the amount for this transaction: ");
         double amount = Double.parseDouble(scanner.nextLine());
         return amount;
     }
@@ -151,6 +151,22 @@ public class ConsoleService {
             return null;  // Or you can prompt the user again for a valid date
         }
     }
+
+    public Date askDateForBudget() {
+        System.out.print("What date for this budget (format as 'yyyy-MM'): ");
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+        try {
+            // Append "-01" to ensure the format matches "yyyy-MM-dd"
+            String userInput = scanner.nextLine();
+            String fullDate = userInput + "-02";
+            Date date = formatter.parse(fullDate);
+            return date;
+        } catch (Exception e) {
+            System.out.println("Invalid date format. Please use 'yyyy-MM'.");
+            return null;  // Or prompt the user again for a valid date
+        }
+    }
+
 
     public void printNewIncomeInfo(Income income){
         System.out.print("This new income added into your account --> ");
