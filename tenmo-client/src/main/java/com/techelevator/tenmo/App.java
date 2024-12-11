@@ -150,7 +150,7 @@ public class App {
         Date date = consoleService.askDate();
         Expense expense = new Expense();
         expense.setAmount(getAmount);
-        expense.setExpenseId(expenseCategoryId);
+        expense.setCategoryId(expenseCategoryId);
         expense.setDate(date);
         expense = accountService.createNewExpense(expense);
         consoleService.printNewExpenseInfo(expense);

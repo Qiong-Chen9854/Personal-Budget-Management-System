@@ -27,6 +27,7 @@ public class JdbcIncomeDao implements IncomeDao{
         int incomeId = jdbcTemplate.queryForObject(sql,int.class,income.getUserId(),income.getAmount(),income.getSourceId(),
                 income.getDate());
         income.setIncomeId(incomeId);
+        income.setSourceName(getSourceName(income.getSourceId()));
 
         String updateAccountSql = "UPDATE account\n" +
                 "SET balance = balance + ? \n" +

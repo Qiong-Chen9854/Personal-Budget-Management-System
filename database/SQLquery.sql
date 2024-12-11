@@ -21,6 +21,10 @@ WHERE user_id = 1001
 Delete from incomes
 where user_id = 1001
 
+Delete from expenses
+where user_id = 1001
+F
+
 Delete from budgets
 where user_id = 1001
 

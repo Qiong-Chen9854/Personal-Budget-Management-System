@@ -171,19 +171,13 @@ public class ConsoleService {
 
 
     public void printNewIncomeInfo(Income income){
-        System.out.print("This new income added into your account --> ");
-        System.out.print("Amount: $" + String.valueOf(income.getAmount()));
-        System.out.println(" Source: " + income.getSourceName());
+        System.out.println("------------------------------------------------------");
+        System.out.println("--This New Income Added Into Your Account --> ");
+        System.out.println("--Amount: $" + String.valueOf(income.getAmount()));
+        System.out.println("--Source: " + income.getSourceName());
+        System.out.println("------------------------------------------------------");
     }
 
-    public void printNewExpenseInfo(Expense expense){
-        System.out.println("------------------------------------------------------");
-        System.out.println("This new expense occurred into your account --> ");
-        System.out.println("Amount: $" + String.valueOf(expense.getAmount()));
-        System.out.println("The Expense spend on: " + expense.getCategoryName());
-        System.out.println("------------------------------------------------------");
-
-    }
 
     public void printIncomeList(List<Income> incomes){
         // Define the date format
@@ -204,6 +198,15 @@ public class ConsoleService {
             System.out.println();
         }
         System.out.println("------------------------------------------------------");
+    }
+
+    public void printNewExpenseInfo(Expense expense){
+        System.out.println("------------------------------------------------------");
+        System.out.println("--This New Expense Occurred Into Your Account -->");
+        System.out.println("--Amount: $" + String.valueOf(expense.getAmount()));
+        System.out.println("--The Expense spend on: " + expense.getCategoryName());
+        System.out.println("------------------------------------------------------");
+
     }
 
     public void printExpenseList(List<Expense> expenses){

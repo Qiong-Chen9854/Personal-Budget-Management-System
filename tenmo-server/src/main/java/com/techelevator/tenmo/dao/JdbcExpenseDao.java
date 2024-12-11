@@ -30,6 +30,7 @@ public class JdbcExpenseDao implements ExpenseDao{
         int expenseId = jdbcTemplate.queryForObject(sqlToCreateExpense,int.class,expense.getUserId(),expense.getAmount(),
                 expense.getCategoryId(),expense.getDate());
         expense.setExpenseId(expenseId);
+        expense.setCategoryName(getCategoryName(expense.getCategoryId()));
 
         String updateAccountBalance = "UPDATE account\n" +
                 "SET balance = balance - ?\n" +
