@@ -5,6 +5,8 @@ import com.techelevator.tenmo.services.AccountService;
 import com.techelevator.tenmo.services.AuthenticationService;
 import com.techelevator.tenmo.services.ConsoleService;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.*;
 
 public class App {
@@ -77,7 +79,7 @@ public class App {
 
     private void mainMenu() {
         //Check if the budget close to limit
-//        isBudgetCloseToLimit();
+        isBudgetCloseToLimit();
 
         int menuSelection = -1;
         while (menuSelection != 0) {
@@ -202,14 +204,32 @@ public class App {
         consoleService.printBudgetVsSpending(budgetVsSpending);
     }
 
-//    private void isBudgetCloseToLimit(){
-//        LocalDate currentDate = LocalDate.now();
-//        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM");
-//        String formattedDate = currentDate.format(formatter);
-//        Map<String, double[]> budgetVsSpending = new HashMap<>();
-//        budgetVsSpending = accountService.budgetVsSpendingByMonth(formattedDate);
-//        if(budgetVsSpending.get(formattedDate)[0] - budgetVsSpending.get(formattedDate)[1] <= 50){
-//            consoleService.alertBudgetCloseToLimit(formattedDate,budgetVsSpending);
-//        }
-//    }
+    private void isBudgetCloseToLimit(){
+        LocalDate currentDate = LocalDate.now();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM");
+        String formattedDate = currentDate.format(formatter);
+
+        Map<String, double[]> budgetVsSpending = accountService.budgetVsSpendingByMonth(formattedDate);
+        
+        if (budgetVsSpending == null || !budgetVsSpending.containsKey(formattedDate)) {
+            System.out.println("No budget data available for the current month.");
+            return; // Exit if no data is found
+        }
+
+        double[] budgetData = budgetVsSpending.get(formattedDate);
+        if (budgetData == null || budgetData.length < 2) {
+            System.out.println("Incomplete budget data for the current month.");
+            return; // Exit if data is incomplete
+        }
+        double totalBudget = budgetData[0];
+        double totalSpending = budgetData[1];
+        double remainingBudget = totalBudget - totalSpending;
+
+        // Check if the budget is close to being exceeded
+        if (remainingBudget <= 50) { // Alert when the remaining budget is less than or equal to 50
+            consoleService.alertBudgetCloseToLimit(formattedDate, budgetVsSpending);
+        } else {
+            System.out.println("Remaining budget is sufficient: " + remainingBudget);
+        }
+    }
 }
