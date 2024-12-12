@@ -208,7 +208,7 @@ public class App {
 //        String formattedDate = currentDate.format(formatter);
 //        Map<String, double[]> budgetVsSpending = new HashMap<>();
 //        budgetVsSpending = accountService.budgetVsSpendingByMonth(formattedDate);
-//        if(budgetVsSpending.get(formattedDate)[0] - budgetVsSpending.get(formattedDate)[1] < 500){
+//        if(budgetVsSpending.get(formattedDate)[0] - budgetVsSpending.get(formattedDate)[1] <= 50){
 //            consoleService.alertBudgetCloseToLimit(formattedDate,budgetVsSpending);
 //        }
 //    }
