@@ -19,11 +19,11 @@ FROM expenses
 WHERE user_id = 1001
 
 Delete from incomes
-where user_id = 1001
+where income_id = 3004
 
 Delete from expenses
-where user_id = 1001
-F
+where category_id = 0
+
 
 Delete from budgets
 where user_id = 1001
@@ -93,7 +93,7 @@ SELECT TO_CHAR(b.month_year, 'YYYY-MM') AS month_year,
 FROM budgets b
 LEFT JOIN expenses e ON b.user_id = e.user_id 
           AND TO_CHAR(b.month_year, 'YYYY-MM') = TO_CHAR(e.date, 'YYYY-MM')
-WHERE TO_CHAR(b.month_year, 'YYYY-MM') = '2024-11' AND user_id = 1001
+WHERE TO_CHAR(b.month_year, 'YYYY-MM') = '2024-11' AND b.user_id = 1001
 GROUP BY b.month_year, b.amount;
 
 SELECT name

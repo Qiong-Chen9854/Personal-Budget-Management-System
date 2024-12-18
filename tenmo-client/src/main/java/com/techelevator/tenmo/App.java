@@ -210,7 +210,7 @@ public class App {
         String formattedDate = currentDate.format(formatter);
 
         Map<String, double[]> budgetVsSpending = accountService.budgetVsSpendingByMonth(formattedDate);
-        
+
         if (budgetVsSpending == null || !budgetVsSpending.containsKey(formattedDate)) {
             System.out.println("No budget data available for the current month.");
             return; // Exit if no data is found
