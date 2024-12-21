@@ -44,6 +44,10 @@ public class AccountController {
     public List<Income> getIncomeList(Principal principal){
         return incomeDao.getIncomeList(getUserId(principal));
     }
+    @RequestMapping(path="/account/income-sources", method=RequestMethod.GET)
+    public Map<Integer, String> incomeSourceList(){
+        return incomeDao.incomeSource();
+    }
     @RequestMapping(path="/account/expense", method=RequestMethod.POST)
     public Expense createExpense(@RequestBody Expense expense, Principal principal){
         expense.setUserId(getUserId(principal));

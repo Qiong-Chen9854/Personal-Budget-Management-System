@@ -10,7 +10,9 @@ import org.springframework.stereotype.Component;
 
 import javax.sql.DataSource;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Component
 public class JdbcIncomeDao implements IncomeDao{
@@ -68,6 +70,18 @@ public class JdbcIncomeDao implements IncomeDao{
         }
 
         return incomeList;
+    }
+
+    @Override
+    public Map<Integer, String> incomeSource() {
+        String sql = "SELECT source_id, name\n" +
+                "FROM income_source";
+        SqlRowSet results = jdbcTemplate.queryForRowSet(sql);
+        Map<Integer,String> incomeSource = new HashMap<>();
+        while(results.next()){
+            incomeSource.put(results.getInt("source_id"),results.getString("name"));
+        }
+        return incomeSource;
     }
 
     private Income mapRowToIncome(SqlRowSet row){

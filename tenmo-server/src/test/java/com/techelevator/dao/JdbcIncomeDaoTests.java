@@ -11,6 +11,7 @@ import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 public class JdbcIncomeDaoTests extends BaseDaoTests{
     private JdbcTemplate jdbcTemplate;
@@ -41,6 +42,12 @@ public class JdbcIncomeDaoTests extends BaseDaoTests{
         List<Income> incomeList = jdbcIncomeDao.getIncomeList(1001);
         Assert.assertEquals(2,incomeList.size());
 
+    }
+
+    @Test
+    public void get_income_source_list(){
+        Map<Integer, String> sourceList = jdbcIncomeDao.incomeSource();
+        Assert.assertEquals(4,sourceList.size());
     }
 
 //    @After
