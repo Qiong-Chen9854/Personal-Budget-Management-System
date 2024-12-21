@@ -62,7 +62,7 @@ public class ConsoleService {
 
     public int printIncomeSource(Map<Integer, String> incomeSourcesList){
         System.out.println();
-        System.out.println("Id: Income Source ");
+        System.out.println("Id:    Income Source ");
         for(Map.Entry<Integer, String> entry: incomeSourcesList.entrySet()){
             System.out.println(entry.getKey() + ":  " + entry.getValue());
         }
@@ -73,13 +73,12 @@ public class ConsoleService {
         return id;
     }
 
-    public int printExpenseCategory(){
+    public int printExpenseCategory(Map<Integer, String> expenseCategoryList){
         System.out.println();
-        System.out.println("Id: Expense Category ");
-        System.out.println("1:  Housing");
-        System.out.println("2:  Food");
-        System.out.println("3:  Transportation");
-        System.out.println("4:  Shopping");
+        System.out.println("Id:    Expense Category ");
+        for(Map.Entry<Integer, String> entry: expenseCategoryList.entrySet()){
+            System.out.println(entry.getKey() + ":  " + entry.getValue());
+        }
         System.out.println("5:  Create A New Category");
         System.out.print("Enter the Category Id: ");
         int id = scanner.nextInt();

@@ -95,6 +95,21 @@ public class AccountService {
         return incomeSources;
     }
 
+    public Map<Integer, String> expenseCategoryList(){
+        Map<Integer, String> expenseCategory  = new HashMap<>();
+        String url = baseApiUrl + "/account/expense-category";
+        HttpEntity<Map> entity = new HttpEntity<>(headers());
+        try{
+            ResponseEntity<Map> response = restTemplate.exchange(url,HttpMethod.GET,entity,Map.class);
+            expenseCategory = response.getBody();
+        } catch(RestClientResponseException e){
+            BasicLogger.log(e.getRawStatusCode() + ": " + e.getMessage());
+        } catch(ResourceAccessException e){
+            BasicLogger.log(e.getMessage());
+        }
+        return expenseCategory;
+    }
+
     public Expense createNewExpense(Expense expense){
         String url = baseApiUrl + "/account/expense";
         HttpEntity<Expense> entity = new HttpEntity<>(expense,headers());

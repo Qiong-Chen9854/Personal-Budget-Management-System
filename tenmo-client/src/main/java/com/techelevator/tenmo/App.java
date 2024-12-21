@@ -18,12 +18,7 @@ public class App {
 
     private AuthenticatedUser currentUser;
     private AccountService accountService = new AccountService(API_BASE_URL);
-    private static final int EXPENSE_CATEGORY_HOUSING = 7001;
-    private static final int EXPENSE_CATEGORY_FOOD = 7002;
-    private static final int EXPENSE_CATEGORY_TRANSPORTATION = 7003;
-    private static final int EXPENSE_CATEGORY_SHOPPING = 7004;
-
-
+    
     public static void main(String[] args) {
         App app = new App();
         app.run();
@@ -122,17 +117,7 @@ public class App {
 	private void addNewExpense() {
 		// TODO Auto-generated method stub
         double getAmount = consoleService.askUserAmount("What is the amount for this transaction: ");
-        int categoryId = consoleService.printExpenseCategory();
-        int expenseCategoryId = -1;
-        if(categoryId == 1){
-            expenseCategoryId = EXPENSE_CATEGORY_HOUSING;
-        }else if(categoryId == 2){
-            expenseCategoryId = EXPENSE_CATEGORY_FOOD;
-        }else if(categoryId == 3){
-            expenseCategoryId = EXPENSE_CATEGORY_TRANSPORTATION;
-        }else if(categoryId == 4){
-            expenseCategoryId = EXPENSE_CATEGORY_SHOPPING;
-        }
+        int expenseCategoryId = consoleService.printExpenseCategory(accountService.expenseCategoryList());
         Date date = consoleService.askDate();
         Expense expense = new Expense();
         expense.setAmount(getAmount);
