@@ -8,7 +8,9 @@ import org.springframework.stereotype.Component;
 
 import javax.sql.DataSource;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Component
 public class JdbcExpenseDao implements ExpenseDao{
@@ -65,6 +67,17 @@ public class JdbcExpenseDao implements ExpenseDao{
         return expenseList;
     }
 
+    @Override
+    public Map<Integer, String> expenseCategoryList() {
+        String sql = "SELECT category_id, name\n" +
+                "FROM expense_category";
+        Map<Integer, String> expenseCategoryList = new HashMap<>();
+        SqlRowSet results = jdbcTemplate.queryForRowSet(sql);
+        while(results.next()){
+            expenseCategoryList.put(results.getInt("category_id"), results.getString("name"));
+        }
+        return expenseCategoryList;
+    }
 
 
     private Expense mapRowToExpense(SqlRowSet row){

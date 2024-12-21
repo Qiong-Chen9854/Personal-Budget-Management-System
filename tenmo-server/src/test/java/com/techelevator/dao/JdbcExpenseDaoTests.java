@@ -11,6 +11,7 @@ import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 public class JdbcExpenseDaoTests extends BaseDaoTests{
     private Expense testExpense;
@@ -39,6 +40,12 @@ public class JdbcExpenseDaoTests extends BaseDaoTests{
         List<Expense> expenseList = jdbcExpenseDao.getExpenseList(1001);
         int numOfExpense = expenseList.size();
         Assert.assertEquals(2,numOfExpense);
+    }
+
+    @Test
+    public void get_expense_category(){
+        Map<Integer, String> expenseCategory = jdbcExpenseDao.expenseCategoryList();
+        Assert.assertEquals(4,expenseCategory.size());
     }
 
 //    @After

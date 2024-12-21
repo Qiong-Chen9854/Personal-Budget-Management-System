@@ -18,12 +18,6 @@ public class App {
 
     private AuthenticatedUser currentUser;
     private AccountService accountService = new AccountService(API_BASE_URL);
-
-    private static final int INCOME_SOURCE_SALARY = 6001;
-    private static final int INCOME_SOURCE_FREELANCE = 6002;
-    private static final int INCOME_SOURCE_INVESTMENT = 6003;
-    private static final int INCOME_SOURCE_GIFTS = 6004;
-
     private static final int EXPENSE_CATEGORY_HOUSING = 7001;
     private static final int EXPENSE_CATEGORY_FOOD = 7002;
     private static final int EXPENSE_CATEGORY_TRANSPORTATION = 7003;

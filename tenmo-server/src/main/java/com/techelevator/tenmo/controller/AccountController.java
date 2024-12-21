@@ -53,6 +53,11 @@ public class AccountController {
         expense.setUserId(getUserId(principal));
         return expenseDao.createNewExpense(expense);
     }
+
+    @RequestMapping(path="/account/expense-category", method=RequestMethod.GET)
+    public Map<Integer, String> expenseCategoryList(){
+        return expenseDao.expenseCategoryList();
+    }
     @RequestMapping(path="/account/expense", method=RequestMethod.GET)
     public List<Expense> getExpenseList(Principal principal){
         return  expenseDao.getExpenseList(getUserId(principal));
