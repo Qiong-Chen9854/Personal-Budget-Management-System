@@ -80,6 +80,21 @@ public class AccountService {
         return Arrays.asList(incomes);
     }
 
+    public Map<Integer, String> incomeSourcesList(){
+        Map<Integer, String> incomeSources  = new HashMap<>();
+        String url = baseApiUrl + "/account/income-sources";
+        HttpEntity<Map> entity = new HttpEntity<>(headers());
+        try{
+            ResponseEntity<Map> response = restTemplate.exchange(url,HttpMethod.GET,entity,Map.class);
+            incomeSources = response.getBody();
+        } catch(RestClientResponseException e){
+            BasicLogger.log(e.getRawStatusCode() + ": " + e.getMessage());
+        } catch(ResourceAccessException e){
+            BasicLogger.log(e.getMessage());
+        }
+        return incomeSources;
+    }
+
     public Expense createNewExpense(Expense expense){
         String url = baseApiUrl + "/account/expense";
         HttpEntity<Expense> entity = new HttpEntity<>(expense,headers());

@@ -114,17 +114,7 @@ public class App {
 	private void addNewIncome() {
 		// TODO Auto-generated method stub
         double getAmount = consoleService.askUserAmount("What is the amount for this transaction: ");
-        int sourceId = consoleService.printIncomeSource();
-        int incomeSourceId = -1;
-        if(sourceId == 1){
-            incomeSourceId = INCOME_SOURCE_SALARY;
-        }else if(sourceId == 2){
-            incomeSourceId = INCOME_SOURCE_FREELANCE;
-        }else if(sourceId == 3){
-            incomeSourceId = INCOME_SOURCE_INVESTMENT;
-        }else if(sourceId == 4){
-            incomeSourceId = INCOME_SOURCE_GIFTS;
-        }
+        int incomeSourceId = consoleService.printIncomeSource(accountService.incomeSourcesList());
         Income income = new Income();
         income.setSourceId(incomeSourceId);
         Date date = consoleService.askDate();

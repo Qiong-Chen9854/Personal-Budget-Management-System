@@ -60,13 +60,12 @@ public class ConsoleService {
         System.out.println("0: Exit");
     }
 
-    public int printIncomeSource(){
+    public int printIncomeSource(Map<Integer, String> incomeSourcesList){
         System.out.println();
         System.out.println("Id: Income Source ");
-        System.out.println("1:  Salary");
-        System.out.println("2:  Freelance");
-        System.out.println("3:  Investment");
-        System.out.println("4:  Gifts");
+        for(Map.Entry<Integer, String> entry: incomeSourcesList.entrySet()){
+            System.out.println(entry.getKey() + ":  " + entry.getValue());
+        }
         System.out.println("5:  Create A New Source");
         System.out.print("Enter the source Id: ");
         int id = scanner.nextInt();
